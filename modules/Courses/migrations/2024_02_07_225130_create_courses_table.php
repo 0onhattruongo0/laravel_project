@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('detail')->nullable();
             $table->integer('teacher_id');
             $table->string('thumbnail')->nullable();
-            $table->float('price')->default(0);
-            $table->float('sale_price')->default(0);
+            $table->decimal('price',9,2)->default(0);
+            $table->decimal('sale_price',9,2)->default(0);
             $table->string('code',100)->nullable();
             $table->float('durations')->default(0);
             $table->boolean('is_document')->default(0);

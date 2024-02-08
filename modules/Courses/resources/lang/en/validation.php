@@ -5,6 +5,7 @@ return[
     'max' => ':attribute nhiều nhất chỉ :max ký tự',
     'min' => ':attribute ít nhất có :min ký tự',
     'integer' => ':attribute không đúng định dạng',
+    'unique' => ':attribute đã tồn tại',
     'choose' => 'Vui lòng chọn giáng viên',
     'attributes'=>
     [
@@ -17,5 +18,6 @@ return[
         'is_document' => 'Tài liệu',
         'supports' => 'Hỗ trợ',
         'status' => 'Trạng thái',
+        'categories' => 'Chuyên mục'
     ]
 ];

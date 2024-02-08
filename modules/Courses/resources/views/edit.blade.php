@@ -96,7 +96,7 @@
                 <label>Trạng thái</label>
                 <select name="status" id="" class="form-select @error('status') is-invalid @enderror">
                     <option value="0" {{old('status' == 0) || $course->status == 0 ? 'selected' : false }} class="">Chưa ra mắt</option>
-                    <option value="1" {{old('status' == 1) || $course->status == 0 ? 'selected' : false }} class="">Đã ra mắt</option>
+                    <option value="1" {{old('status' == 1) || $course->status == 1 ? 'selected' : false }} class="">Đã ra mắt</option>
                 </select>
                 @error('status')
                 <span class="invalid-feedback" role="alert">
@@ -118,6 +118,19 @@
         </div>
         <div class="col-12">
             <div class="mb-3">
+                <label>Chuyên mục</label>
+                <div class="categories_checkbox @error('categories') is-invalid @enderror">
+                    {{getCategoriesCheckbox($categories, old('categories') ?? $categoriesId)}}
+                </div>
+                @error('categories')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="mb-3">
                 <label>Nội dung</label>
                 <textarea name="detail" id="detail" cols="30" rows="10" class="form-select @error('detail') is-invalid @enderror" placeholder="Nội dung...">{{old('detail') ?? $course->detail}}</textarea>
                 @error('detail')
@@ -127,9 +140,10 @@
             @enderror
             </div>
         </div>
+        
         <div class="col-12">
             <div class="mb-3">
-                <div class="row align-items-end">
+                <div class="row {{$errors->has('thumbnail') ? 'align-items-center' : 'align-items-end'}}">
                     <div class="col-7">
                         <label>Ảnh đại diện</label>
                         <input type="text" id="thumbnail" name="thumbnail" class="form-control @error('thumbnail') is-invalid @enderror" placeholder="Ảnh đại diện..." value="{{old('thumbnail') ?? $course->thumbnail}}">
@@ -171,6 +185,10 @@
     #holder img{
         width:100% !important;
         height:auto !important;
+    }
+    .categories_checkbox{
+        max-height: 250px;
+        overflow: auto
     }
 </style>
 @endsection

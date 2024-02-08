@@ -10,8 +10,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/data','data')->name('data');
         Route::get('/create','create')->name('create');
         Route::post('/create','store')->name('store');
-        Route::get('/edit/{category}','edit')->name('edit');
-        Route::put('/edit/{category}','update')->name('update');
-        Route::post('/delete/{category}','delete')->name('delete');
+        Route::get('/edit/{course}','edit')->name('edit');
+        Route::put('/edit/{course}','update')->name('update');
+        Route::post('/delete/{course}','delete')->name('delete');
     });
 });
