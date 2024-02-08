@@ -77,8 +77,8 @@
             <div class="mb-3">
                 <label>Tài liệu đính kèm</label>
                 <select name="is_document" id="" class="form-select @error('is_document') is-invalid @enderror">
-                    <option value="0" class="">Không</option>
-                    <option value="1" class="">Có</option>
+                    <option value="0" {{old('is_document' == 0) ? 'selected' : false }} class="">Không</option>
+                    <option value="1" {{old('is_document' == 1) ? 'selected' : false }} class="">Có</option>
                 </select>
                 @error('is_document')
                 <span class="invalid-feedback" role="alert">
@@ -91,8 +91,8 @@
             <div class="mb-3">
                 <label>Trạng thái</label>
                 <select name="status" id="" class="form-select @error('status') is-invalid @enderror">
-                    <option value="0" class="">Chưa ra mắt</option>
-                    <option value="1" class="">Đã ra mắt</option>
+                    <option value="0" {{old('status' == 0) ? 'selected' : false }} class="">Chưa ra mắt</option>
+                    <option value="1" {{old('status' == 1) ? 'selected' : false }} class="">Đã ra mắt</option>
                 </select>
                 @error('status')
                 <span class="invalid-feedback" role="alert">
@@ -103,9 +103,9 @@
         </div>
         <div class="col-12">
             <div class="mb-3">
-                <label>Nội dung</label>
-                <textarea name="detail" id="" cols="30" rows="10" class="form-select @error('detail') is-invalid @enderror" placeholder="Nội dung..."></textarea>
-                @error('detail')
+                <label>Hỗ trợ</label>
+                <textarea name="supports" id="supports" class="form-select @error('supports') is-invalid @enderror" placeholder="Hỗ trợ...">{{old('supports')}}</textarea>
+                @error('supports')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -114,9 +114,9 @@
         </div>
         <div class="col-12">
             <div class="mb-3">
-                <label>Hỗ trợ</label>
-                <textarea name="supports" id="" cols="30" rows="10" class="form-select @error('supports') is-invalid @enderror" placeholder="Hỗ trợ..."></textarea>
-                @error('supports')
+                <label>Nội dung</label>
+                <textarea name="detail" id="detail" cols="30" rows="10" class="form-select @error('detail') is-invalid @enderror" placeholder="Nội dung...">{{old('detail')}}</textarea>
+                @error('detail')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -128,7 +128,7 @@
                 <div class="row align-items-end">
                     <div class="col-7">
                         <label>Ảnh đại diện</label>
-                        <input type="text" name="thumbnail" class="form-control @error('thumbnail') is-invalid @enderror" placeholder="Ảnh đại diện..." value="{{old('thumbnail')}}">
+                        <input type="text" id="thumbnail" name="thumbnail" class="form-control @error('thumbnail') is-invalid @enderror" placeholder="Ảnh đại diện..." value="{{old('thumbnail')}}">
                         @error('thumbnail')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -136,10 +136,14 @@
                         @enderror
                     </div>
                     <div class="col-2 d-grid">
-                        <button type="button" class="btn btn-primary">Chọn ảnh</button>
+                        <button type="button" id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">Chọn ảnh</button>
                     </div>
                     <div class="col-3">
-                        <img class="thumbnail" src="https://d1hjkbq40fs2x4.cloudfront.net/2016-01-31/files/1045.jpg" alt="" class="">
+                        <div id="holder">
+                            @if(old('thumbnail'))
+                            <img src="{{old('thumbnail')}}" alt="" class="">
+                            @endif
+                        </div>
                     </div>
                 </div>
                 
@@ -148,7 +152,7 @@
        
         <div class="">
             <button type="submit" class="btn btn-primary">Lưu lại</button>
-            <a href="{{route('admin.users.index')}}" class="btn btn-danger">Hủy</a>
+            <a href="{{route('admin.courses.index')}}" class="btn btn-danger">Hủy</a>
         </div>
     </div>
 </form>
@@ -160,5 +164,17 @@
         width:100%;
         height:auto;
     }
+    #holder img{
+        width:100% !important;
+        height:auto !important;
+    }
 </style>
+@endsection
+
+@section('script')
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+<script>
+    CKEDITOR.replace('detail', options);
+    $('#lfm').filemanager('image');
+</script>
 @endsection

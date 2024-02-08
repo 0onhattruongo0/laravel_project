@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
-// use Modules\Courses\src\Http\Requests\UserRequest;
+use Modules\Courses\src\Http\Requests\CourseRequest;
 use Modules\Courses\src\Repositories\CoursesRepository;
 
 
@@ -35,7 +35,22 @@ class CoursesController extends Controller
         ->editColumn('created_at', function($course){
             return Carbon::parse($course->created_at)->format('d/m/Y H:i:s');
         })
-        ->rawColumns(['edit', 'delete'])
+        ->editColumn('status', function($course){
+            return $course->status == 1 ? '<button class="btn btn-success">Đã ra mắt</button>' : '<button class="btn btn-warning">Chưa ra mắt</button>' ;
+        })
+        ->editColumn('price', function($course){
+            if($course->price !=0){
+                if($course->sale_price != 0){
+                    $course->price = $course->sale_price;
+                }
+                return number_format($course->price).'đ' ;
+            }else{
+                return 'Miễn phí';
+            }
+
+            
+        })
+        ->rawColumns(['edit', 'delete','status','price'])
         ->toJson();
     }
 
@@ -44,45 +59,43 @@ class CoursesController extends Controller
         return view('courses::add',compact('page_title'));
     }
 
-    public function store(Request $request){
-        $this->coursesRepository->create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'group_id' => $request->group_id,
-        ]);
+    public function store(CourseRequest $request){
+        $course = $request->except(['_token']);
+        if(!$request->sale_price){
+            $course['sale_price'] = 0;
+        }
+        if(!$request->price){
+            $course['price'] = 0;
+        }
+        $this->coursesRepository->create($course);
         return redirect(route('admin.courses.index'))->with('msg',__('courses::messages.success'));
     }
 
     public function edit($id){
-        $page_title = 'Cập nhật người dùng';
-        $courses = $this->coursesRepository->find($id);
-        if(!$courses){
+        $page_title = 'Cập nhật khóa học';
+        $course = $this->coursesRepository->find($id);
+        if(!$course){
             abort(404);
         }
-        return view('courses::edit',compact('courses','page_title'));
+        return view('courses::edit',compact('course','page_title'));
     }
 
-    public function update(Request $request, $id){
-        if($request->password){
-            $this->coursesRepository->update($id, [
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'group_id' => $request->group_id,
-            ]);
+    public function update(CourseRequest $request, $id){
+        $course = $request->except(['_token'.'method']);
+        if(!$request->sale_price){
+            $course['sale_price'] = 0;
         }
-        $this->coursesRepository->update($id, [
-            'name' => $request->name,
-            'email' => $request->email,
-            'group_id' => $request->group_id,
-        ]);
+        if(!$request->price){
+            $course['price'] = 0;
+        }
 
-        return redirect()->back()->with('msg',__('courses::messages.edit_success'));
+        $this->coursesRepository->update($id, $course);
+
+        return back()->with('msg',__('courses::messages.edit_success'));
     }
 
-    public function delete($user){
-        $this->coursesRepository->delete($user);
+    public function delete($course){
+        $this->coursesRepository->delete($course);
         return redirect(route('admin.courses.index'))->with('msg',__('courses::messages.delete_success'));
     }
 }

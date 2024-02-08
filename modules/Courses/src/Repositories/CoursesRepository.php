@@ -13,6 +13,6 @@ class CoursesRepository extends BaseRepository implements CoursesRepositoryInter
     }
 
     public function getData(){
-        return $this->model->select(['id','name','price','status','created_at']);
+        return $this->model->select(['id','name','slug','price','sale_price','status','created_at'])->latest();
     }
 }

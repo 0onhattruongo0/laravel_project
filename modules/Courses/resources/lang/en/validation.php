@@ -3,16 +3,19 @@
 return[
     'required' => ':attribute bắt buộc phải nhập',
     'max' => ':attribute nhiều nhất chỉ :max ký tự',
-    'email' => ':attribute định dạng chưa chính xác',
-    'unique' => ':attribute đã tồn tại',
     'min' => ':attribute ít nhất có :min ký tự',
     'integer' => ':attribute không đúng định dạng',
-    'choose' => 'Vui lòng chọn nhóm',
+    'choose' => 'Vui lòng chọn giáng viên',
     'attributes'=>
     [
         'name' => 'Tên',
-            'email' => 'Email',
-            'password' => 'Mật khẩu',
-            'group_id' => 'Nhóm'
+        'slug' => 'Slug',
+        'detail' => 'Nội dung',
+        'teacher_id' => 'Giảng viên',
+        'thumbnail' => 'Ảnh đại diện',
+        'code' => 'Mã khóa học',
+        'is_document' => 'Tài liệu',
+        'supports' => 'Hỗ trợ',
+        'status' => 'Trạng thái',
     ]
 ];

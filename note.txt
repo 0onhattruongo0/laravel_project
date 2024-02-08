@@ -5,6 +5,14 @@ https://yajrabox.com/docs/laravel-datatables/
 debugbar
 https://github.com/barryvdh/laravel-debugbar
 
+laravel filemanager
+https://github.com/UniSharp/laravel-filemanager-example-5.3
+
+file lfm chuyển:
+
+   'should_create_thumbnails' => false,
+
+
 
 
 
@@ -66,7 +74,7 @@ https://github.com/barryvdh/laravel-debugbar
 -   slug => varchar(255)
 -   detail => text
 -   teacher_id => int
--   thumbnail => varchar(255) => Để cuối
+-   thumbnail => varchar(255)
 -   price => float
 -   sale_price => float
 -   code => varchar(100)

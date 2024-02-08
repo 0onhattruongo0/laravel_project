@@ -11,7 +11,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/create','create')->name('create');
         Route::post('/create','store')->name('store');
         Route::get('/edit/{category}','edit')->name('edit');
-        Route::post('/edit/{category}','update')->name('update');
+        Route::put('/edit/{category}','update')->name('update');
         Route::post('/delete/{category}','delete')->name('delete');
     });
 });
