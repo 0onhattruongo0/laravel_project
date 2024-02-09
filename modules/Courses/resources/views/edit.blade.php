@@ -35,7 +35,11 @@
                 <label>Giảng viên</label>
                 <select name="teacher_id" id="" class="form-select @error('teacher_id') is-invalid @enderror">
                     <option value="0" class="">Chọn giảng viên</option>
-                    <option value="1" class="">Admin</option>
+                    @if($teachers)
+                        @foreach($teachers as $teacher)
+                            <option value="{{$teacher->id}}" {{old('teacher_id') == $teacher->id || $course->teacher_id == $teacher->id ? 'selected' : false}} class="">{{$teacher->name}}</option>
+                        @endforeach
+                    @endif
                 </select>
                 @error('teacher_id')
                 <span class="invalid-feedback" role="alert">
@@ -178,10 +182,6 @@
 
 @section('css')
 <style>
-    img.thumbnail{
-        width:100%;
-        height:auto;
-    }
     #holder img{
         width:100% !important;
         height:auto !important;
@@ -194,7 +194,6 @@
 @endsection
 
 @section('script')
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script>
     CKEDITOR.replace('detail', options);
     $('#lfm').filemanager('image');

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use Modules\Courses\src\Http\Requests\CourseRequest;
 use Modules\Courses\src\Repositories\CoursesRepository;
+use Modules\Teacher\src\Repositories\TeacherRepository;
 use Modules\Categories\src\Repositories\CategoriesRepository;
 
 
@@ -15,11 +16,13 @@ class CoursesController extends Controller
 {
     protected $coursesRepository;
     protected $categoryRepository;
+    protected $teacherRepository;
 
-    public function __construct(CoursesRepository $coursesRepository, CategoriesRepository $categoryRepository)
+    public function __construct(CoursesRepository $coursesRepository, CategoriesRepository $categoryRepository, TeacherRepository $teacherRepository)
     {
         $this->coursesRepository = $coursesRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->teacherRepository = $teacherRepository;
     }
     public function index(){
         $page_title = 'Quản lý khóa học';
@@ -60,7 +63,8 @@ class CoursesController extends Controller
     public function create(){
         $page_title = 'Thêm mới khóa học';
         $categories = $this->categoryRepository->getCategoriesAll();
-        return view('courses::add',compact('page_title','categories'));
+        $teachers = $this->teacherRepository->getTeachers()->get();
+        return view('courses::add',compact('page_title','categories','teachers'));
     }
 
     public function store(CourseRequest $request){
@@ -89,7 +93,8 @@ class CoursesController extends Controller
         if(!$course){
             abort(404);
         }
-        return view('courses::edit',compact('course','page_title','categories','categoriesId'));
+        $teachers = $this->teacherRepository->getTeachers()->get();
+        return view('courses::edit',compact('course','page_title','categories','categoriesId','teachers'));
     }
 
     public function update(CourseRequest $request, $id){
@@ -113,8 +118,12 @@ class CoursesController extends Controller
     }
 
     public function delete($id){
-        $course = $this->coursesRepository->find($id);
-        $this->coursesRepository->deleteCoursesCategories($course);
+
+        // Vì sử dụng onDelete('cascade) nên ko cần dùng đến
+        // $course = $this->coursesRepository->find($id);
+        // $this->coursesRepository->deleteCoursesCategories($course);
+
+
         $this->coursesRepository->delete($id);
         return redirect(route('admin.courses.index'))->with('msg',__('courses::messages.delete_success'));
     }
