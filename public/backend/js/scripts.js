@@ -104,4 +104,14 @@ window.addEventListener('DOMContentLoaded', event => {
         })
     }
 
+    const logout_action = document.querySelector('.logout_action');
+    const logout_form = document.querySelector('.logout_form');
+    if(logout_action){
+        logout_action.addEventListener('click',function(e){
+            e.preventDefault();
+            logout_form.action = e.target.href;
+            logout_form.submit();
+        })
+    }
+
 });

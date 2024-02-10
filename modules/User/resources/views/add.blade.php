@@ -1,5 +1,4 @@
-@extends('layout.backend')
-@section('title','Thêm mới người dùng')
+@extends('layouts.backend')
 @section('content')
 <form action="{{route('admin.users.store')}}" method="POST" class="">
     @csrf

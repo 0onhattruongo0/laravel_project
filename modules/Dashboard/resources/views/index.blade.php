@@ -1,5 +1,4 @@
-@extends('layout.backend')
-@section('title','Trang tổng quan')
+@extends('layouts.backend')
 @section('content')
-<p>Xin chào, </p>
+<p>Xin chào, {{Auth::user()->name}}</p>
 @endsection

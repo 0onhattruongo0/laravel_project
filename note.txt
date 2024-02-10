@@ -1,18 +1,22 @@
-https://datatables.net/
+__ https://datatables.net/
 
-https://yajrabox.com/docs/laravel-datatables/
+__ https://yajrabox.com/docs/laravel-datatables/
 
-debugbar
+__ debugbar
 https://github.com/barryvdh/laravel-debugbar
 
-laravel filemanager
+__ laravel filemanager
 https://github.com/UniSharp/laravel-filemanager-example-5.3
 
 file lfm chuyển:
 
    'should_create_thumbnails' => false,
 
+__ laravel auth
 
+composer require laravel/ui
+php artisan ui bootstrap --auth
+npm install && npm run dev
 
 
 

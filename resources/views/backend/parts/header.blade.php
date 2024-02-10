@@ -13,7 +13,10 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="#!">Cá nhân</a></li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#!">Đăng Xuất</a></li>
+                <li><a class="dropdown-item logout_action" href="{{route('logout')}}" >Đăng Xuất</a></li>
+                <form action="" method="POST" class="logout_form">
+                    @csrf
+                </form>
             </ul>
         </li>
     </ul>

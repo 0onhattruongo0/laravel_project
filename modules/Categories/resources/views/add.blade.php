@@ -1,5 +1,4 @@
-@extends('layout.backend')
-@section('title','Thêm mới danh mục')
+@extends('layouts.backend')
 @section('content')
 <form action="{{route('admin.categories.store')}}" method="POST" class="">
     @csrf

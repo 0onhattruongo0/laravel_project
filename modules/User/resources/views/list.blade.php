@@ -1,5 +1,4 @@
-@extends('layout.backend')
-@section('title','Danh sách người dùng')
+@extends('layouts.backend')
 @section('content')
 <a href="{{route('admin.users.create')}}" class="btn btn-primary mb-3">Thêm mới</a>
 @if(session('msg'))

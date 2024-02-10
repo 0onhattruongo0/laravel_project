@@ -1,5 +1,4 @@
-@extends('layout.backend')
-@section('title','Quản lý giảng viên')
+@extends('layouts.backend')
 @section('content')
 <a href="{{route('admin.teachers.create')}}" class="btn btn-primary mb-3">Thêm mới</a>
 @if(session('msg'))
