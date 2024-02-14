@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use Modules\Courses\src\Http\Requests\CourseRequest;
-use Modules\Courses\src\Repositories\CoursesRepository;
-use Modules\Teacher\src\Repositories\TeacherRepository;
-use Modules\Categories\src\Repositories\CategoriesRepository;
+use Modules\Courses\src\Repositories\CoursesRepositoryInterface;
+use Modules\Teacher\src\Repositories\TeacherRepositoryInterface;
+use Modules\Categories\src\Repositories\CategoriesRepositoryInterface;
 
 
 class CoursesController extends Controller
@@ -18,7 +18,7 @@ class CoursesController extends Controller
     protected $categoryRepository;
     protected $teacherRepository;
 
-    public function __construct(CoursesRepository $coursesRepository, CategoriesRepository $categoryRepository, TeacherRepository $teacherRepository)
+    public function __construct(CoursesRepositoryInterface $coursesRepository, CategoriesRepositoryInterface $categoryRepository, TeacherRepositoryInterface $teacherRepository)
     {
         $this->coursesRepository = $coursesRepository;
         $this->categoryRepository = $categoryRepository;

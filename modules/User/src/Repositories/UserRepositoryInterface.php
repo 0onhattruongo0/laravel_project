@@ -6,6 +6,7 @@ use App\Repositories\RepositoryInterface;
 
 interface UserRepositoryInterface extends RepositoryInterface{
     public function getUsers($limit);
+    public function getData();
     public function setPassword($password,$id);
     public function checkPassword($password,$id);
 }

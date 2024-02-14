@@ -2,10 +2,17 @@
 
 namespace Modules;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\ServiceProvider;
 
 use Modules\User\src\Repositories\UserRepository;
+use Modules\Courses\src\Repositories\CoursesRepository;
+use Modules\Teacher\src\Repositories\TeacherRepository;
+use Modules\User\src\Repositories\UserRepositoryInterface;
+use Modules\Categories\src\Repositories\CategoriesRepository;
+use Modules\Courses\src\Repositories\CoursesRepositoryInterface;
+use Modules\Teacher\src\Repositories\TeacherRepositoryInterface;
+use Modules\Categories\src\Repositories\CategoriesRepositoryInterface;
 
 
 class ModuleServiceProvider extends ServiceProvider{
@@ -16,6 +23,28 @@ class ModuleServiceProvider extends ServiceProvider{
 
     private $commands = [
     ];
+
+    public function registerRepositories(){
+        $this->app->singleton(
+            UserRepositoryInterface::class,
+            UserRepository::class
+        );
+
+        $this->app->singleton(
+            TeacherRepositoryInterface::class,
+            TeacherRepository::class
+        );
+
+        $this->app->singleton(
+            CoursesRepositoryInterface::class,
+            CoursesRepository::class
+        );
+
+        $this->app->singleton(
+            CategoriesRepositoryInterface::class,
+            CategoriesRepository::class
+        );
+    }
 
     public function boot(){
         $directories = $this->getModules();
@@ -62,9 +91,12 @@ class ModuleServiceProvider extends ServiceProvider{
         // Khai báo commands
         $this->commands($this->commands);
 
-        $this->app->singleton(
-            UserRepository::class
-        );
+        $this->registerRepositories();
+
+        // $this->app->singleton(
+        //     UserRepositoryInterface::class,
+        //     UserRepository::class
+        // );
     }
 
      // Khai báo đăng ký cho từng modules
