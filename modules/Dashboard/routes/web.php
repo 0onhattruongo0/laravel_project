@@ -3,10 +3,10 @@ use Illuminate\Support\Facades\Route;
 use Modules\Dashboard\src\Http\Controllers\DashboardController;
 
 
-Route::prefix('admin')->middleware('web')->group(function(){
+Route::prefix('admin')->group(function(){
         Route::get('/',[DashboardController::class,'index'])->name('admin.dashboard.index');
 });
 
-Route::group(['prefix' => 'filemanager', 'middleware' => ['web']], function () {
+Route::group(['prefix' => 'filemanager'], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
 });

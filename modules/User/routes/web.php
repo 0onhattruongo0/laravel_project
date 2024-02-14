@@ -5,7 +5,7 @@ use Modules\User\src\Http\Controllers\UserController;
 
 
 Route::prefix('admin')->name('admin.')->group(function(){
-    Route::controller(UserController::class)->prefix('users')->name('users.')->middleware('web')->group(function () {
+    Route::controller(UserController::class)->prefix('users')->name('users.')->group(function () {
         Route::get('/','index')->name('index');
         Route::get('/data','data')->name('data');
         Route::get('/create','create')->name('create');

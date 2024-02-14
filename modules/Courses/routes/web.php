@@ -5,7 +5,7 @@ use Modules\Courses\src\Http\Controllers\CoursesController;
 
 
 Route::prefix('admin')->name('admin.')->group(function(){
-    Route::controller(CoursesController::class)->prefix('courses')->name('courses.')->middleware('web')->group(function () {
+    Route::controller(CoursesController::class)->prefix('courses')->name('courses.')->group(function () {
         Route::get('/','index')->name('index');
         Route::get('/data','data')->name('data');
         Route::get('/create','create')->name('create');

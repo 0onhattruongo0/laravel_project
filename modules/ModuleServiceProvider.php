@@ -3,8 +3,9 @@
 namespace Modules;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\ServiceProvider;
 use Modules\User\src\Repositories\UserRepository;
 use Modules\Courses\src\Repositories\CoursesRepository;
 use Modules\Teacher\src\Repositories\TeacherRepository;
@@ -105,9 +106,14 @@ class ModuleServiceProvider extends ServiceProvider{
         // Khai báo thành phần ở đây
 
         // Khai báo route
-        if (File::exists($modulePath . "routes/routes.php")) {
-            $this->loadRoutesFrom($modulePath . "routes/routes.php");
-        }
+
+        Route::middleware('web')->group(function() use ($modulePath){
+            if (File::exists($modulePath . "routes/web.php")) {
+                $this->loadRoutesFrom($modulePath . "routes/web.php");
+            }
+        });
+       
+        
 
         // Khai báo migration
         // Toàn bộ file migration của modules sẽ tự động được load
