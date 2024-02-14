@@ -81,8 +81,8 @@ class Module extends Command
             if(!File::exists($routesFolder)){
                 File::makeDirectory($routesFolder, 0755, true, true);
 
-                // routes.php
-                $routesFile = base_path('modules/'.$name.'/routes/routes.php');
+                // web.php
+                $routesFile = base_path('modules/'.$name.'/routes/web.php');
 
                 if(!File::exists($routesFile)){
                     File::put($routesFile,"<?php \n use Illuminate\Support\Facades\Route;");
