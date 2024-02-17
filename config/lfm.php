@@ -76,6 +76,32 @@ return [
                 'image/gif',
             ],
         ],
+        'video' => [
+            'folder_name'  => 'videos',
+            'startup_view' => 'grid',
+            'max_size'     => 1048576, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'valid_mime'   => [
+                'video/mp4',
+                'video/mpeg'
+            ],
+        ],
+        'document' => [
+            'folder_name'  => 'documents',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'valid_mime'   => [
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'application/pdf',
+            ],
+        ],
     ],
 
     /*

@@ -5,7 +5,7 @@
 </a>
 <div class="collapse {{request()->is(trim(route('admin.'.$name.'.index', [], false),'/').'/*') || request()->is(trim(route('admin.'.$name.'.index', [], false),'/')) ? 'show' : false}}" id="collapse{{$name}}" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
     <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="{{route('admin.'.$name.'.create')}}">Thêm mới</a>
-        <a class="nav-link" href="{{route('admin.'.$name.'.index')}}">Danh sách</a>
+        <a class="nav-link {{request()->is(trim(route('admin.'.$name.'.create',[],false),'/')) ? 'active' :false}}" href="{{route('admin.'.$name.'.create')}}">Thêm mới</a>
+        <a class="nav-link {{request()->is(trim(route('admin.'.$name.'.index',[],false),'/')) ? 'active' :false}}" href="{{route('admin.'.$name.'.index')}}">Danh sách</a>
     </nav>
 </div>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Modules;
 
@@ -7,25 +7,32 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\User\src\Repositories\UserRepository;
+use Modules\Video\src\Repositories\VideoRepository;
+use Modules\Lesson\src\Repositories\LessonRepository;
 use Modules\Courses\src\Repositories\CoursesRepository;
 use Modules\Teacher\src\Repositories\TeacherRepository;
+use Modules\Document\src\Repositories\DocumentRepository;
 use Modules\User\src\Repositories\UserRepositoryInterface;
+use Modules\Video\src\Repositories\VideoRepositoryInterface;
 use Modules\Categories\src\Repositories\CategoriesRepository;
+use Modules\Lesson\src\Repositories\LessonRepositoryInterface;
 use Modules\Courses\src\Repositories\CoursesRepositoryInterface;
 use Modules\Teacher\src\Repositories\TeacherRepositoryInterface;
+use Modules\Document\src\Repositories\DocumentRepositoryInterface;
 use Modules\Categories\src\Repositories\CategoriesRepositoryInterface;
 
 
-class ModuleServiceProvider extends ServiceProvider{
+class ModuleServiceProvider extends ServiceProvider
+{
 
     private $middleware = [
         // 'key' => 'namespace của middleare'
     ];
 
-    private $commands = [
-    ];
+    private $commands = [];
 
-    public function registerRepositories(){
+    public function registerRepositories()
+    {
         $this->app->singleton(
             UserRepositoryInterface::class,
             UserRepository::class
@@ -45,36 +52,49 @@ class ModuleServiceProvider extends ServiceProvider{
             CategoriesRepositoryInterface::class,
             CategoriesRepository::class
         );
+        $this->app->singleton(
+            VideoRepositoryInterface::class,
+            VideoRepository::class
+        );
+        $this->app->singleton(
+            DocumentRepositoryInterface::class,
+            DocumentRepository::class
+        );
+        $this->app->singleton(
+            LessonRepositoryInterface::class,
+            LessonRepository::class
+        );
     }
 
-    public function boot(){
+    public function boot()
+    {
         $directories = $this->getModules();
-        if(!empty($directories)){
+        if (!empty($directories)) {
             foreach ($directories as $moduleName) {
                 $this->registerModule($moduleName);
             }
         }
     }
 
-    public function register(){
+    public function register()
+    {
         // // Khai báo configs
         $directories = $this->getModules();
         // dd(File::directories(__DIR__));
-        if(!empty($directories)){
+        if (!empty($directories)) {
             foreach ($directories as $directory) {
-                $configPath = __DIR__.'/'.$directory.'/configs';
+                $configPath = __DIR__ . '/' . $directory . '/configs';
                 // dd($configPath);
-                if(File::exists($configPath)){
+                if (File::exists($configPath)) {
                     $configFiles = array_map('basename', File::allFiles($configPath));
                     // dd($configFiles);
-                    foreach ($configFiles as $config){
-                        $alias = basename($config,'.php');
+                    foreach ($configFiles as $config) {
+                        $alias = basename($config, '.php');
                         // dd($alias);
                         // dd($configPath.'/'.$config);
-                        $this->mergeConfigFrom($configPath.'/'.$config, $alias);
+                        $this->mergeConfigFrom($configPath . '/' . $config, $alias);
                     }
                 }
-                
             }
         }
 
@@ -86,7 +106,7 @@ class ModuleServiceProvider extends ServiceProvider{
         // $this->mergeConfigFrom($path, $alias);
         // }
 
-        
+
         $this->registerMiddleware($this->middleware);
 
         // Khai báo commands
@@ -100,20 +120,21 @@ class ModuleServiceProvider extends ServiceProvider{
         // );
     }
 
-     // Khai báo đăng ký cho từng modules
-     private function registerModule($moduleName) {
+    // Khai báo đăng ký cho từng modules
+    private function registerModule($moduleName)
+    {
         $modulePath = __DIR__ . "/$moduleName/";
         // Khai báo thành phần ở đây
 
         // Khai báo route
 
-        Route::middleware('web')->group(function() use ($modulePath){
+        Route::middleware('web')->group(function () use ($modulePath) {
             if (File::exists($modulePath . "routes/web.php")) {
                 $this->loadRoutesFrom($modulePath . "routes/web.php");
             }
         });
-       
-        
+
+
 
         // Khai báo migration
         // Toàn bộ file migration của modules sẽ tự động được load
@@ -142,26 +163,23 @@ class ModuleServiceProvider extends ServiceProvider{
             $helper_dir = File::allFiles($modulePath . "helpers");
             // khai báo helpers
             foreach ($helper_dir as $key => $value) {
-            $file = $value->getPathName();
-            // echo $file;
-            require $file;
+                $file = $value->getPathName();
+                // echo $file;
+                require $file;
             }
         }
     }
 
-    private function getModules(){
+    private function getModules()
+    {
         $directories = array_map('basename', File::directories(__DIR__));
         return $directories;
     }
 
-    private function registerMiddleware($middleware){
+    private function registerMiddleware($middleware)
+    {
         foreach ($middleware as $key => $value) {
             $this->app['router']->pushMiddlewareToGroup($key, $value);
         }
     }
-
-  
-
 }
-
-?>

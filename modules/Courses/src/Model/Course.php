@@ -2,10 +2,12 @@
 
 namespace Modules\Courses\src\Model;
 
+use Modules\Lesson\src\Model\Lesson;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Categories\src\Model\Category;
 
-class Course extends Model{
+class Course extends Model
+{
 
     protected $fillable = [
         'name',
@@ -21,9 +23,15 @@ class Course extends Model{
         'status'
     ];
 
-    public function categories(){
-        return $this->belongsToMany(Category::class,'categories_courses');
+    protected $table = 'courses';
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'categories_courses');
     }
 
+    public function lesson()
+    {
+        return $this->hasMany(Lesson::class, 'course_id', 'id');
+    }
 }
-?>
