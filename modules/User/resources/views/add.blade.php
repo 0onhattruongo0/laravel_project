@@ -30,7 +30,11 @@
                 <label>Nhóm</label>
                 <select name="group_id" id="" class="form-select @error('group_id') is-invalid @enderror">
                     <option value="0" class="">Chọn nhóm</option>
-                    <option value="1" class="">Admin</option>
+                    @if($group_list)
+                        @foreach($group_list as $item)
+                            <option value="{{$item->id}}" {{$item->id == old('group_id') ? 'selected' : false}} class="">{{$item->name}}</option>
+                        @endforeach
+                    @endif
                 </select>
                 @error('group_id')
                 <span class="invalid-feedback" role="alert">

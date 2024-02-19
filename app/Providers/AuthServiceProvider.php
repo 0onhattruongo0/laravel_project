@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Policies\GroupPolicy;
+use Modules\User\src\Model\User;
+use Modules\Group\src\Model\Group;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Group::class => GroupPolicy::class
     ];
 
     /**
@@ -21,6 +24,74 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $modulesList = moduleArray();
+
+        if (!empty($modulesList)) {
+
+            foreach ($modulesList as $module) {
+
+                Gate::define($module['name'], function (User $user) use ($module) {
+
+                    $roleJson = $user->group->permissions;
+                    if (!empty($roleJson)) {
+                        $roleArr = json_decode($roleJson, true);
+                        $check = isRole($roleArr, $module['name']);
+                        return $check;
+                    }
+                    return false;
+                });
+
+                Gate::define($module['name'] . '.add', function (User $user) use ($module) {
+
+                    $roleJson = $user->group->permissions;
+                    if (!empty($roleJson)) {
+                        $roleArr = json_decode($roleJson, true);
+                        $check = isRole($roleArr, $module['name'], 'add');
+                        return $check;
+                    }
+                    return false;
+                });
+
+                Gate::define($module['name'] . '.edit', function (User $user) use ($module) {
+                    $roleJson = $user->group->permissions;
+                    if (!empty($roleJson)) {
+                        $roleArr = json_decode($roleJson, true);
+                        $check = isRole($roleArr, $module['name'], 'edit');
+                        return $check;
+                    }
+                    return false;
+                });
+
+                Gate::define($module['name'] . '.delete', function (User $user) use ($module) {
+                    $roleJson = $user->group->permissions;
+                    if (!empty($roleJson)) {
+                        $roleArr = json_decode($roleJson, true);
+                        $check = isRole($roleArr, $module['name'], 'delete');
+                        return $check;
+                    }
+                    return false;
+                });
+
+                // Gate::define($module['name'].'.permission', function(User $user) use ($module){
+                //     $roleJson = $user->group->permissions;
+                //     if(!empty($roleJson)){
+                //         $roleArr = json_decode($roleJson,true);
+                //         $check = isRole($roleArr,$module['name'],'permission');
+                //         return $check;
+                //     }
+                //     return false;
+                // });
+            }
+        }
+
+        Gate::define('groups.permission', function (User $user) {
+            $roleJson = $user->group->permissions;
+            if (!empty($roleJson)) {
+                $roleArr = json_decode($roleJson, true);
+                $check = isRole($roleArr, 'groups', 'permission');
+                return $check;
+            }
+            return false;
+        });
     }
 }

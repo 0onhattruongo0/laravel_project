@@ -7,22 +7,36 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Tổng quan
                 </a>
-                @include('backend.parts.sidebar_item', [
-                    'name' => 'categories',
-                    'title' => 'Chuyên mục'
-                ])
-                @include('backend.parts.sidebar_item', [
-                    'name' => 'courses',
-                    'title' => 'Khóa học'
-                ])
-                @include('backend.parts.sidebar_item', [
-                    'name' => 'teachers',
-                    'title' => 'Giảng viên'
-                ])
-                @include('backend.parts.sidebar_item', [
-                    'name' => 'users',
-                    'title' => 'Người dùng'
-                ])
+                @can('categories')
+                    @include('backend.parts.sidebar_item', [
+                        'name' => 'categories',
+                        'title' => 'Chuyên mục'
+                    ])
+                @endcan
+                @can('courses')
+                    @include('backend.parts.sidebar_item', [
+                        'name' => 'courses',
+                        'title' => 'Khóa học'
+                    ])
+                @endcan
+                @can('teachers')
+                    @include('backend.parts.sidebar_item', [
+                        'name' => 'teachers',
+                        'title' => 'Giảng viên'
+                    ])
+                @endcan
+                @can('users')
+                    @include('backend.parts.sidebar_item', [
+                        'name' => 'users',
+                        'title' => 'Người dùng'
+                    ])
+                @endcan
+                @can('groups')
+                    @include('backend.parts.sidebar_item', [
+                        'name' => 'groups',
+                        'title' => 'Nhóm người dùng'
+                    ])
+                @endcan
             </div>
         </div>
     </nav>

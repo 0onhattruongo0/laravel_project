@@ -1,25 +1,26 @@
 @extends('layouts.backend')
 @section('content')
-@can('courses.add')
-<a href="{{route('admin.courses.create')}}" class="btn btn-primary mb-3">Thêm mới</a>
+@can('groups.add')
+<a href="{{route('admin.groups.create')}}" class="btn btn-primary mb-3">Thêm mới</a>
 @endcan
 @if(session('msg'))
 <div class="alert alert-success">{{session('msg')}}</div>
+@endif
+@if(session('error'))
+<div class="alert alert-danger">{{session('error')}}</div>
 @endif
 <table id="datatables" class='table table-bordered'>
     <thead>
         <tr>
             <th>Tên</th>
-            <th>Giá</th>
-            <th>Trạng thái</th>
-            @can('lessons')
-            <th>Bài giảng</th>
+            <th>Người tạo</th>
+            @can('groups.permission')
+            <th>Phân quyền</th>
             @endcan
-            <th>Ngày tạo</th>
-            @can('courses.edit')
+            @can('groups.edit')
             <th>Sửa</th>
             @endcan
-            @can('courses.delete')
+            @can('groups.delete')
             <th>Xóa</th>
             @endcan
         </tr>
@@ -27,16 +28,14 @@
     <tfoot>
         <tr>
             <th>Tên</th>
-            <th>Giá</th>
-            <th>Trạng thái</th>
-            @can('lessons')
-            <th>Bài giảng</th>
+            <th>Người tạo</th>
+            @can('groups.permissions')
+            <th>Phân quyền</th>
             @endcan
-            <th>Ngày tạo</th>
-            @can('courses.edit')
+            @can('groups.edit')
             <th>Sửa</th>
             @endcan
-            @can('courses.delete')
+            @can('groups.delete')
             <th>Xóa</th>
             @endcan
         </tr>
@@ -50,19 +49,17 @@
         $('#datatables').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{route('admin.courses.data')}}",
+            ajax: "{{route('admin.groups.data')}}",
             columns : [
                 { data : 'name' },
-                { data : 'price' },
-                { data : 'status' },
-                @can('lessons')
-                { data : 'lessons' },
+                { data : 'user_id' },
+                @can('groups.permission')
+                { data : 'permissions' },
                 @endcan
-                { data : 'created_at' },
-                @can('courses.edit')
+                @can('groups.edit')
                 { data : 'edit' },
                 @endcan
-                @can('courses.delete')
+                @can('groups.delete')
                 { data : 'delete' }
                 @endcan
             ]

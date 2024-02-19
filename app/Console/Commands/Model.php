@@ -39,7 +39,7 @@ class Model extends Command
 
         if (File::exists($srcFolder)) {
 
-            $modelFolder = base_path('modules/' . $module . '/src/Models');
+            $modelFolder = base_path('modules/' . $module . '/src/Model');
             if (!File::exists($modelFolder)) {
                 File::makeDirectory($modelFolder, 0755, true, true);
             }

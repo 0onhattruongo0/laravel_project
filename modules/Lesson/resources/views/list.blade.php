@@ -1,8 +1,12 @@
 @extends('layouts.backend')
 @section('content')
 <p>
+@can('courses')
 <a href="{{route('admin.courses.index')}}" class="btn btn-info mb-3">Quay lại khóa học</a>
+@endcan
+@can('lessons.add')
 <a href="{{route('admin.lessons.create',$courseId)}}" class="btn btn-primary mb-3">Thêm mới</a>
+@endcan
 </p>
 @if(session('msg'))
 <div class="alert alert-success">{{session('msg')}}</div>
@@ -15,8 +19,12 @@
             <th>Lượt xem</th>
             <th>Thứ tự</th>
             <th>Thời gian</th>
+            @can('lessons.edit')
             <th>Sửa</th>
+            @endcan
+            @can('lessons.delete')
             <th>Xóa</th>
+            @endcan
         </tr>
     </thead>
     <tfoot>
@@ -26,8 +34,12 @@
             <th>Lượt xem</th>
             <th>Thứ tự</th>
             <th>Thời gian</th>
+            @can('lessons.edit')
             <th>Sửa</th>
+            @endcan
+            @can('lessons.delete')
             <th>Xóa</th>
+            @endcan
         </tr>
     </tfoot>
 </table>
@@ -46,8 +58,12 @@
                 { data : 'views' },
                 { data : 'position' },
                 { data : 'created_at' },
+                @can('lessons.edit')
                 { data : 'edit' },
+                @endcan
+                @can('lessons.delete')
                 { data : 'delete' }
+                @endcan
             ]
         });
     } );

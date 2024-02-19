@@ -19,6 +19,8 @@ php artisan ui bootstrap --auth
 npm install && npm run dev
 
 
+composer dump-autoload
+chạy khi sửa composer (dùng trong trường hợp file helpers)
 
 --------------------------------
 
@@ -316,4 +318,7 @@ php artisan module:make-migration TenMigration TenModule
 
 ```
 php artisan module:make-seeder TenSeeder TenModule
+
+chạy seeder
+php artisan db:seed --class=Modules\\User\\seeders\\UserSeeder
 ```

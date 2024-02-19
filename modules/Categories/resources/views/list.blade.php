@@ -1,6 +1,8 @@
 @extends('layouts.backend')
 @section('content')
+@can('categories.add')
 <a href="{{route('admin.categories.create')}}" class="btn btn-primary mb-3">Thêm mới</a>
+@endcan
 @if(session('msg'))
 <div class="alert alert-success">{{session('msg')}}</div>
 @endif
@@ -10,8 +12,12 @@
             <th>Tên</th>
             <th>Link</th>
             <th>Ngày tạo</th>
+            @can('categories.edit')
             <th>Sửa</th>
+            @endcan
+            @can('categories.delete')
             <th>Xóa</th>
+            @endcan
         </tr>
     </thead>
     <tfoot>
@@ -19,8 +25,12 @@
             <th>Tên</th>
             <th>Link</th>
             <th>Ngày tạo</th>
+            @can('categories.edit')
             <th>Sửa</th>
+            @endcan
+            @can('categories.delete')
             <th>Xóa</th>
+            @endcan
         </tr>
     </tfoot>
 </table>
@@ -40,8 +50,12 @@
                 { data : 'name' },
                 { data : 'link' },
                 { data : 'created_at' },
+                @can('categories.edit')
                 { data : 'edit' },
-                { data : 'delete' }
+                @endcan
+                @can('categories.delete')
+                { data : 'delete' },
+                @endcan
             ]
         });
     } );

@@ -33,7 +33,11 @@
                 <label>Nhóm</label>
                 <select name="group_id" id="" class="form-select @error('group_id') is-invalid @enderror">
                     <option value="0" class="">Chọn nhóm</option>
-                    <option value="1" class="">Admin</option>
+                    @if($group_list)
+                    @foreach($group_list as $item)
+                        <option value="{{$item->id}}" {{$item->id == old('group_id') || $user->group_id == $item->id ? 'selected' : false}} class="">{{$item->name}}</option>
+                    @endforeach
+                @endif
                 </select>
                 @error('group_id')
                 <span class="invalid-feedback" role="alert">
@@ -44,7 +48,7 @@
         </div>
         <div class="col-6">
             <div class="mb-3">
-                <label>Password</label>
+                <label>Mật khẩu: <span class="text-danger">(Không thay đổi thì không cần nhập)</span></label>
                 <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Mật khẩu..." value="{{old('password')}}">
                 @error('password')
                 <span class="invalid-feedback" role="alert">
