@@ -3,6 +3,7 @@
 namespace Modules\Courses\src\Model;
 
 use Modules\Lesson\src\Model\Lesson;
+use Modules\Module\src\Model\Module;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Categories\src\Model\Category;
 
@@ -30,8 +31,8 @@ class Course extends Model
         return $this->belongsToMany(Category::class, 'categories_courses');
     }
 
-    public function lesson()
+    public function module()
     {
-        return $this->hasMany(Lesson::class, 'course_id', 'id');
+        return $this->hasMany(Module::class, 'module_id', 'id');
     }
 }

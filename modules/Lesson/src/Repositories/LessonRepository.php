@@ -12,8 +12,8 @@ class LessonRepository extends BaseRepository implements LessonRepositoryInterfa
     {
         return Lesson::class;
     }
-    public function getData($courseId)
+    public function getData($moduleId)
     {
-        return $this->model->select(['id', 'name', 'slug', 'is_trial', 'views', 'position', 'created_at'])->where('course_id', '=', $courseId)->latest();
+        return $this->model->select(['id', 'name', 'slug', 'is_trial', 'views', 'position', 'created_at'])->where('module_id', '=', $moduleId)->latest();
     }
 }

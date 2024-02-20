@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
         $group_id = DB::table('groups')->insertGetId([
             'name' => 'Administrator',
             'user_id' => 0,
-            'permissions' => '{"groups":["view","add","delete","edit","permission"]}',
+            'permissions' => '{"users":["view","add","edit","delete"],"groups":["view","add","edit","delete","permission"],"teachers":["view","add","edit","delete"],"categories":["view","add","edit","delete"],"courses":["view","add","edit","delete"]}',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

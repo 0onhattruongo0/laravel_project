@@ -1,40 +1,32 @@
 @extends('layouts.backend')
 @section('content')
-@can('courses.add')
-<a href="{{route('admin.courses.create')}}" class="btn btn-primary mb-3">Thêm mới</a>
-@endcan
+<p>
+<a href="{{route('admin.courses.index')}}" class="btn btn-info mb-3">Quay lại khóa học</a>
+<a href="{{route('admin.modules.create',$courseId)}}" class="btn btn-primary mb-3">Thêm mới</a>
+</p>
 @if(session('msg'))
 <div class="alert alert-success">{{session('msg')}}</div>
+@endif
+@if(session('err'))
+<div class="alert alert-danger">{{session('err')}}</div>
 @endif
 <table id="datatables" class='table table-bordered'>
     <thead>
         <tr>
             <th>Tên</th>
-            <th>Giá</th>
-            <th>Trạng thái</th>
-            <th>Modules</th>
-            <th>Ngày tạo</th>
-            @can('courses.edit')
+            <th>Bài giảng</th>
+            <th>Thời gian</th>
             <th>Sửa</th>
-            @endcan
-            @can('courses.delete')
             <th>Xóa</th>
-            @endcan
         </tr>
     </thead>
     <tfoot>
         <tr>
             <th>Tên</th>
-            <th>Giá</th>
-            <th>Trạng thái</th>
-            <th>Modules</th>
-            <th>Ngày tạo</th>
-            @can('courses.edit')
+            <th>Bài giảng</th>
+            <th>Thời gian</th>
             <th>Sửa</th>
-            @endcan
-            @can('courses.delete')
             <th>Xóa</th>
-            @endcan
         </tr>
     </tfoot>
 </table>
@@ -46,19 +38,13 @@
         $('#datatables').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{route('admin.courses.data')}}",
+            ajax: "{{route('admin.modules.data',$courseId)}}",
             columns : [
                 { data : 'name' },
-                { data : 'price' },
-                { data : 'status' },
-                { data : 'modules' },
+                { data : 'lesson' },
                 { data : 'created_at' },
-                @can('courses.edit')
                 { data : 'edit' },
-                @endcan
-                @can('courses.delete')
                 { data : 'delete' }
-                @endcan
             ]
         });
     } );

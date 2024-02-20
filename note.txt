@@ -91,14 +91,22 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-3. Table lessons => Quản lý bài giảng
+
+3. Table modules => Danh sách các module khóa học
+
+-   id => int
+-   name => varchar(255)
+-   slug => varchar(255)
+-   course_id => int
+
+4. Table lessons => Quản lý bài giảng
 
 -   id => int
 -   name => varchar(255)
 -   slug => varchar(255)
 -   video_id => int
 -   document_id => int
--   parent_id => int
+-   module_id => int
 -   is_trial => tinyint
 -   views => int
 -   position => int
@@ -107,7 +115,7 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-4. Table categories_courses => Trung gian liên kết giữa danh mục và khóa học
+5. Table categories_courses => Trung gian liên kết giữa danh mục và khóa học
 
 -   id => int
 -   category_id => int
@@ -115,7 +123,7 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-5. Table teacher => Giảng viên
+6. Table teacher => Giảng viên
 
 -   id => int
 -   name => varchar(100)
@@ -126,7 +134,7 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-6. Table videos => Quản lý video bài giảng
+7. Table videos => Quản lý video bài giảng
 
 -   id => int
 -   name => varchar(255)
@@ -134,7 +142,7 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-7. Table documents => Quản lý tài liệu bài giảng
+8. Table documents => Quản lý tài liệu bài giảng
 
 -   id => int
 -   name => varchar(255)
@@ -143,28 +151,9 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-8. Table categories_posts => Quản lý danh mục tin tức
 
--   id => int
--   name => varchar(200)
--   slug => varchar(200)
--   parent_id => int
--   created_at => timestamp
--   updated_at => timestamp
 
-9. Table posts => Quản lý tin tức
-
--   id => int
--   title => varchar(255)
--   slug => varchar(255)
--   content => text
--   exceprt => text
--   thumbnail => varchar(255)
--   category_id => int
--   created_at => timestamp
--   updated_at => timestamp
-
-10. Table students => Quản lý học viên
+9. Table students => Quản lý học viên
 
 -   id => int
 -   name => varchar(100)
@@ -176,7 +165,7 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-11. Table students_courses => Trung gian học viên và khóa học
+10. Table students_courses => Trung gian học viên và khóa học
 
 -   id => int
 -   course_id => int
@@ -184,7 +173,7 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-12. Table orders => Quản lý đơn đăng ký của học viên
+11. Table orders => Quản lý đơn đăng ký của học viên
 
 -   id => int
 -   student_id => int
@@ -193,7 +182,7 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-13. Table orders_detail => Chi tiết đơn hàng
+12. Table orders_detail => Chi tiết đơn hàng
 
 -   id => int
 -   order_id => int
@@ -202,14 +191,14 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-14. Table orders_status => Quản lý trạng thái đơn hàng
+13. Table orders_status => Quản lý trạng thái đơn hàng
 
 -   id => int
 -   name => varchar(200)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-15. Table users => Quản trị hệ thống
+14. Table users => Quản trị hệ thống
 
 -   id => int
 -   name => varchar(100)
@@ -219,7 +208,7 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-16. Table groups => Quản trị nhóm người dùng
+15. Table groups => Quản trị nhóm người dùng
 
 -   id => int
 -   name => varchar(100)
@@ -227,14 +216,8 @@ chạy khi sửa composer (dùng trong trường hợp file helpers)
 -   created_at => timestamp
 -   updated_at => timestamp
 
-17. Table modules => Danh sách các module trong trang quản trị
 
--   id => int
--   name => varchar(100)
--   title => varchar(200)
--   role => text
-
-18. Table options => Quản lý các thiết lập
+16. Table options => Quản lý các thiết lập
 
 -   id => int
 -   name => varchar(100)

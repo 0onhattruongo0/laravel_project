@@ -98,7 +98,7 @@
        
         <div class="">
             <button type="submit" class="btn btn-primary">Lưu lại</button>
-            <a href="{{route('admin.lessons.index',$courseId)}}" class="btn btn-danger">Hủy</a>
+            <a href="{{route('admin.lessons.index',$moduleId)}}" class="btn btn-danger">Hủy</a>
         </div>
     </div>
 </form>

@@ -34,17 +34,5 @@ function moduleArray()
             'name' => 'courses',
             'title' => 'Quản lý khóa học',
         ],
-        [
-            'name' => 'lessons',
-            'title' => 'Quản lý bài giảng',
-        ],
-        [
-            'name' => 'categories_post',
-            'title' => 'Quản lý danh mục tin tức',
-        ],
-        [
-            'name' => 'posts',
-            'title' => 'Quản lý bài viết',
-        ]
     ];
 }

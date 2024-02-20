@@ -40,8 +40,8 @@ class CoursesController extends Controller
             ->addColumn('delete', function ($course) {
                 return '<a href="' . route('admin.courses.delete', $course) . '" class="btn btn-danger delete_action">Xóa</a>';
             })
-            ->addColumn('lessons', function ($course) {
-                return '<a href="' . route('admin.lessons.index', $course) . '" class="btn btn-primary">Bài giảng</a>';
+            ->addColumn('modules', function ($course) {
+                return '<a href="' . route('admin.modules.index', $course) . '" class="btn btn-primary">Modules</a>';
             })
             ->editColumn('created_at', function ($course) {
                 return Carbon::parse($course->created_at)->format('d/m/Y H:i:s');
@@ -59,7 +59,7 @@ class CoursesController extends Controller
                     return 'Miễn phí';
                 }
             })
-            ->rawColumns(['edit', 'delete', 'status', 'price', 'lessons'])
+            ->rawColumns(['edit', 'delete', 'status', 'price', 'modules'])
             ->toJson();
     }
 

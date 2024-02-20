@@ -3,7 +3,7 @@
 namespace Modules\Lesson\src\Model;
 
 use Modules\Video\src\Model\Video;
-use Modules\Courses\src\Model\Course;
+use Modules\Module\src\Model\Module;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Document\src\Model\Document;
 
@@ -13,7 +13,7 @@ class Lesson extends Model
     protected $fillable = [
         'name',
         'slug',
-        'course_id',
+        'module_id',
         'video_id',
         'document_id',
         'is_trial',
@@ -22,9 +22,9 @@ class Lesson extends Model
         'description'
     ];
 
-    public function course()
+    public function module()
     {
-        return $this->belongsTo(Course::class, 'course_id', 'id');
+        return $this->belongsTo(Module::class, 'module_id', 'id');
     }
     public function video()
     {

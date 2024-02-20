@@ -8,32 +8,33 @@ use Yajra\DataTables\Facades\DataTables;
 use Modules\Lesson\src\Http\Requests\LessonRequest;
 use Modules\Video\src\Repositories\VideoRepositoryInterface;
 use Modules\Lesson\src\Repositories\LessonRepositoryInterface;
-use Modules\Courses\src\Repositories\CoursesRepositoryInterface;
+use Modules\Module\src\Repositories\ModuleRepositoryInterface;
 use Modules\Document\src\Repositories\DocumentRepositoryInterface;
 
 class LessonController extends Controller
 {
-    protected $coursesRepository;
+    protected $moduleRepository;
     protected $videoRepository;
     protected $documentRepository;
     protected $lessonRepository;
-    public function __construct(CoursesRepositoryInterface $coursesRepository, VideoRepositoryInterface $videoRepository, DocumentRepositoryInterface $documentRepository, LessonRepositoryInterface $lessonRepository)
+    public function __construct(ModuleRepositoryInterface $moduleRepository, VideoRepositoryInterface $videoRepository, DocumentRepositoryInterface $documentRepository, LessonRepositoryInterface $lessonRepository)
     {
-        $this->coursesRepository = $coursesRepository;
+        $this->moduleRepository = $moduleRepository;
         $this->videoRepository = $videoRepository;
         $this->documentRepository = $documentRepository;
         $this->lessonRepository = $lessonRepository;
     }
-    public function index($courseId)
+    public function index($moduleId)
     {
-        $course = $this->coursesRepository->find($courseId);
-        $page_title = 'Bài giảng: ' . $course->name;
-        return view('lesson::list', compact('page_title', 'courseId'));
+        $module = $this->moduleRepository->find($moduleId);
+        $courseId = $module->course->id;
+        $page_title = 'Bài giảng: ' . $module->name;
+        return view('lesson::list', compact('page_title', 'moduleId', 'courseId'));
     }
 
-    public function data($courseId)
+    public function data($moduleId)
     {
-        $lessons = $this->lessonRepository->getData($courseId);
+        $lessons = $this->lessonRepository->getData($moduleId);
         return DataTables::of($lessons)
             ->addColumn('edit', function ($lesson) {
                 return '<a href="' . route('admin.lessons.edit', $lesson) . '" class="btn btn-warning">Sửa</a>';
@@ -51,13 +52,13 @@ class LessonController extends Controller
             ->toJson();
     }
 
-    public function create($courseId)
+    public function create($moduleId)
     {
-        $course = $this->coursesRepository->find($courseId);
-        $page_title = 'Thêm bài giảng: ' . $course->name;
-        return view('lesson::add', compact('page_title', 'courseId'));
+        $module = $this->moduleRepository->find($moduleId);
+        $page_title = 'Thêm bài giảng: ' . $module->name;
+        return view('lesson::add', compact('page_title', 'moduleId'));
     }
-    public function store($courseId, LessonRequest $request)
+    public function store($moduleId, LessonRequest $request)
     {
         $videoId = $this->videoId($request->video);
         if ($request->document) {
@@ -73,22 +74,22 @@ class LessonController extends Controller
         $this->lessonRepository->create([
             'name' => $request->name,
             'slug' => $request->slug,
-            'course_id' => $courseId,
+            'module_id' => $moduleId,
             'is_trial' => $request->is_trial,
             'position' => $position,
             'video_id' => $videoId,
             'document_id' => $documentId,
             'description' => $request->description,
         ]);
-        return redirect()->route('admin.lessons.index', $courseId)->with('msg', __('lesson::messages.success'));
+        return redirect()->route('admin.lessons.index', $moduleId)->with('msg', __('lesson::messages.success'));
     }
 
     public function edit($lesson)
     {
         $lesson = $this->lessonRepository->find($lesson);
-        $page_title = 'Sửa bài giảng: ' . $lesson->course->name;
-        $course_id = $lesson->course->id;
-        return view('lesson::edit', compact('page_title', 'lesson', 'course_id'));
+        $page_title = 'Sửa bài giảng: ' . $lesson->module->name;
+        $moduleId = $lesson->module->id;
+        return view('lesson::edit', compact('page_title', 'lesson', 'moduleId'));
     }
 
     public function update($id, LessonRequest $request)
@@ -105,7 +106,7 @@ class LessonController extends Controller
             $position = 0;
         }
         $lesson = $this->lessonRepository->find($id);
-        $courseId = $lesson->course->id;
+        $moduleId = $lesson->module->id;
 
         $this->lessonRepository->update($id, [
             'name' => $request->name,
@@ -116,15 +117,15 @@ class LessonController extends Controller
             'document_id' => $documentId,
             'description' => $request->description,
         ]);
-        return redirect()->route('admin.lessons.index', $courseId)->with('msg', __('lesson::messages.success'));
+        return redirect()->route('admin.lessons.index', $moduleId)->with('msg', __('lesson::messages.edit_success'));
     }
 
     public function delete($id)
     {
         $lesson = $this->lessonRepository->find($id);
-        $courseId = $lesson->course->id;
+        $moduleId = $lesson->module->id;
         $this->lessonRepository->delete($id);
-        return redirect(route('admin.lessons.index', $courseId))->with('msg', __('lesson::messages.delete_success'));
+        return redirect(route('admin.lessons.index', $moduleId))->with('msg', __('lesson::messages.delete_success'));
     }
 
     public function videoId($video_url)

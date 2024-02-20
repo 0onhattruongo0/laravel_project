@@ -13,16 +13,16 @@
                         'title' => 'Chuyên mục'
                     ])
                 @endcan
+                @can('teachers')
+                @include('backend.parts.sidebar_item', [
+                        'name' => 'teachers',
+                        'title' => 'Giảng viên'
+                    ])
+                @endcan
                 @can('courses')
                     @include('backend.parts.sidebar_item', [
                         'name' => 'courses',
                         'title' => 'Khóa học'
-                    ])
-                @endcan
-                @can('teachers')
-                    @include('backend.parts.sidebar_item', [
-                        'name' => 'teachers',
-                        'title' => 'Giảng viên'
                     ])
                 @endcan
                 @can('users')

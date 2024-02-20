@@ -51,6 +51,7 @@ class GroupPolicy
     public function permission(User $user, Group $group)
     {
         return $group->name != 'Administrator';
+        // return true;
     }
 
     /**
