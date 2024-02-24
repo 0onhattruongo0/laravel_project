@@ -19,7 +19,8 @@ class Lesson extends Model
         'is_trial',
         'views',
         'position',
-        'description'
+        'description',
+        'finish'
     ];
 
     public function module()

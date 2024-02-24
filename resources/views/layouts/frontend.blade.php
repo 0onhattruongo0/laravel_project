@@ -172,33 +172,29 @@
     //         }
     //     });
 
-    //     jQuery('input[name="checklesson"]').on('click', function() {
-    //         var courseId = $(this).data('course');
-    //         var lessonId = $(this).data('lesson');
-    //         if (courseId != '' && lessonId != '') {
-               
+        jQuery('input[name="checklesson"]').on('click', function() {
+            var lessonId = $(this).data('lesson');
+            var _token = $('input[name="_token"]').val();
+            if (lessonId != '') {
+                jQuery.ajax({
+                    url: "{{route('finish')}}",
+                    type: 'POST',
+                    data: {
+                        lessonId: lessonId,
+                        _token: _token
+                    },
+                    context: this,
+                    success: function(response) {
+                        if (response.mes == 'addsuccess') {
+                            $(this).parent('li').find('a').addClass('checkfinish');
+                        } else {
+                            $(this).parent('li').find('a').removeClass('checkfinish');
+                        }
+                    }
+                });
+            }
 
-    //             jQuery.ajax({
-    //                 url: "https://online.unicode.vn/lesson/finish",
-    //                 type: 'POST',
-    //                 data: {
-    //                     courseId: courseId,
-    //                     lessonId: lessonId
-    //                 },
-    //                 context: this,
-    //                 success: function(response) {
-    //                     console.log(response);
-    //                     if (response.mes == 'addsuccess') {
-
-    //                         $(this).parent('li').find('a').addClass('checkfinish');
-    //                     } else {
-    //                         $(this).parent('li').find('a').removeClass('checkfinish');
-    //                     }
-    //                 }
-    //             });
-    //         }
-
-    //     })
+        })
 
     //     jQuery('.status-event img').on('click', function() {
     //         var stautus = $(this).data('status');
@@ -219,18 +215,18 @@
 
     //     });
 
-    //     if (jQuery('.hide-lesson').length > 0) {
-    //         jQuery('.hide-lesson').on('click', function(e) {
-    //             e.preventDefault();
-    //             if (!jQuery('.edu_wraper').hasClass('full-width')) {
-    //                 jQuery('.edu_wraper').addClass('full-width');
-    //                 jQuery(this).text('Hiện bài học');
-    //             } else {
-    //                 jQuery('.edu_wraper').removeClass('full-width');
-    //                 jQuery(this).text('Ẩn bài học');
-    //             }
-    //         });
-    //     }
+        if (jQuery('.hide-lesson').length > 0) {
+            jQuery('.hide-lesson').on('click', function(e) {
+                e.preventDefault();
+                if (!jQuery('.edu_wraper').hasClass('full-width')) {
+                    jQuery('.edu_wraper').addClass('full-width');
+                    jQuery(this).text('Hiện bài học');
+                } else {
+                    jQuery('.edu_wraper').removeClass('full-width');
+                    jQuery(this).text('Ẩn bài học');
+                }
+            });
+        }
 
     //     const updateActivity = () => {
             

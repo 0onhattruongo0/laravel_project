@@ -124,211 +124,43 @@
 
                 </div>
             </div>
-
         </div>
         <div class="row">
-
-                        <!-- Cource Grid 1 -->
+            @foreach($courses as $course)
             <div class="col-lg-4 col-md-6">
                 <div class="education_block_grid style_2" style="">
 
                     <div class="education_block_thumb n-shadow">
-                        <a href="/khoa-hoc/html-css-danh-cho-nguoi-moi-bat-dau"><img src="/storage/images/khoa%20hoc%20html-css.png" class="img-fluid custom-course-image" alt=""></a>
+                        <a href="{{route('course',$course->slug)}}"><img src="{{$course->thumbnail}}" class="img-fluid custom-course-image" alt=""></a>
                         <div class="cources_price" style="left: 0; top: 0; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            595,000đ
+                            {{number_format($course->sale_price) . 'đ'}}
                         </div>
-                                                <div class="cources_price" style="left: auto;right: 0px !important; top: 0px; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            Đã ra mắt</div>
-                                            </div>
+                        <div class="cources_price" style="left: auto;right: 0px !important; top: 0px; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
+                            {{$course->status == 1 ? 'Đã ra mắt' : 'Chưa ra mắt'}}
+                        </div>
+                    </div>
 
                     <div class="education_block_body">
-                        <h4 class="bl-title"><a href="/khoa-hoc/html-css-danh-cho-nguoi-moi-bat-dau">HTML - CSS dành cho người mới bắt đầu</a>
+                        <h4 class="bl-title"><a href="{{route('course',$course->slug)}}">{{$course->name}}</a>
                         </h4>
                         <p class="price">
-                                                        <del>795,000đ</del>
-                            <ins>595,000đ</ins>
-                                                    </p>
+                            <del>{{number_format($course->price) . 'đ'}}</del>
+                            <ins>{{number_format($course->sale_price) . 'đ'}}</ins>
+                        </p>
                     </div>
 
                     <div class="education_block_footer">
                         <div class="education_block_author">
-                            <div class="path-img"><a href="instructor-detail.html"><img src="/frontend/assets/img/ta-hoang-an.jpg" class="img-fluid " alt=""></a></div>
-                            <h5><a href="#">Hoàng An</a></h5>
+                            <div class="path-img"><a href="instructor-detail.html"><img src="{{$course->teacher->image}}" class="img-fluid " alt=""></a></div>
+                            <h5><a href="#">{{$course->teacher->name}}</a></h5>
                         </div>
-                        <div class="foot_lecture"><i class="ti-control-skip-forward mr-2"></i>112 bài học
+                        <div class="foot_lecture"><i class="ti-control-skip-forward mr-2"></i>{{($course->lesson->count())}} bài học
                         </div>
                     </div>
 
                 </div>
             </div>
-                        <!-- Cource Grid 1 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="education_block_grid style_2" style="">
-
-                    <div class="education_block_thumb n-shadow">
-                        <a href="/khoa-hoc/khoa-hoc-laravel-livewire-tu-co-ban-den-nang-cao"><img src="/storage/images/laravel-livewire.jpg" class="img-fluid custom-course-image" alt=""></a>
-                        <div class="cources_price" style="left: 0; top: 0; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            695,000đ
-                        </div>
-                                                <div class="cources_price" style="left: auto;right: 0px !important; top: 0px; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            Đã ra mắt</div>
-                                            </div>
-
-                    <div class="education_block_body">
-                        <h4 class="bl-title"><a href="/khoa-hoc/khoa-hoc-laravel-livewire-tu-co-ban-den-nang-cao">Khóa học Laravel Livewire từ cơ bản đến nâng cao</a>
-                        </h4>
-                        <p class="price">
-                                                        <del>2,580,000đ</del>
-                            <ins>695,000đ</ins>
-                                                    </p>
-                    </div>
-
-                    <div class="education_block_footer">
-                        <div class="education_block_author">
-                            <div class="path-img"><a href="instructor-detail.html"><img src="/frontend/assets/img/ta-hoang-an.jpg" class="img-fluid " alt=""></a></div>
-                            <h5><a href="#">Hoàng An</a></h5>
-                        </div>
-                        <div class="foot_lecture"><i class="ti-control-skip-forward mr-2"></i>26 bài học
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-                        <!-- Cource Grid 1 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="education_block_grid style_2" style="">
-
-                    <div class="education_block_thumb n-shadow">
-                        <a href="/khoa-hoc/khoa-hoc-sql-co-ban-den-nang-cao"><img src="/storage/images/khoa-hoc-sql.png" class="img-fluid custom-course-image" alt=""></a>
-                        <div class="cources_price" style="left: 0; top: 0; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            395,000đ
-                        </div>
-                                                <div class="cources_price" style="left: auto;right: 0px !important; top: 0px; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            Đã ra mắt</div>
-                                            </div>
-
-                    <div class="education_block_body">
-                        <h4 class="bl-title"><a href="/khoa-hoc/khoa-hoc-sql-co-ban-den-nang-cao">Khóa học SQL cơ bản đến nâng cao</a>
-                        </h4>
-                        <p class="price">
-                                                        <del>695,000đ</del>
-                            <ins>395,000đ</ins>
-                                                    </p>
-                    </div>
-
-                    <div class="education_block_footer">
-                        <div class="education_block_author">
-                            <div class="path-img"><a href="instructor-detail.html"><img src="/frontend/assets/img/ta-hoang-an.jpg" class="img-fluid " alt=""></a></div>
-                            <h5><a href="#">Hoàng An</a></h5>
-                        </div>
-                        <div class="foot_lecture"><i class="ti-control-skip-forward mr-2"></i>22 bài học
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-                        <!-- Cource Grid 1 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="education_block_grid style_2" style="">
-
-                    <div class="education_block_thumb n-shadow">
-                        <a href="/khoa-hoc/lap-trinh-front-end-voi-reactjs"><img src="/storage/images/jcr_content.jpeg" class="img-fluid custom-course-image" alt=""></a>
-                        <div class="cources_price" style="left: 0; top: 0; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            695,000đ
-                        </div>
-                                                <div class="cources_price" style="left: auto;right: 0px !important; top: 0px; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            Đã ra mắt</div>
-                                            </div>
-
-                    <div class="education_block_body">
-                        <h4 class="bl-title"><a href="/khoa-hoc/lap-trinh-front-end-voi-reactjs">Lập trình Front-End với ReactJS</a>
-                        </h4>
-                        <p class="price">
-                                                        <del>1,580,000đ</del>
-                            <ins>695,000đ</ins>
-                                                    </p>
-                    </div>
-
-                    <div class="education_block_footer">
-                        <div class="education_block_author">
-                            <div class="path-img"><a href="instructor-detail.html"><img src="/frontend/assets/img/ta-hoang-an.jpg" class="img-fluid " alt=""></a></div>
-                            <h5><a href="#">Hoàng An</a></h5>
-                        </div>
-                        <div class="foot_lecture"><i class="ti-control-skip-forward mr-2"></i>31 bài học
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-                        <!-- Cource Grid 1 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="education_block_grid style_2" style="">
-
-                    <div class="education_block_thumb n-shadow">
-                        <a href="/khoa-hoc/lap-trinh-php-mysql-co-ban-danh-cho-nguoi-moi"><img src="/storage/images/khoa%20hoc%20php%20co%20ban.png" class="img-fluid custom-course-image" alt=""></a>
-                        <div class="cources_price" style="left: 0; top: 0; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            795,000đ
-                        </div>
-                                                <div class="cources_price" style="left: auto;right: 0px !important; top: 0px; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            Đã ra mắt</div>
-                                            </div>
-
-                    <div class="education_block_body">
-                        <h4 class="bl-title"><a href="/khoa-hoc/lap-trinh-php-mysql-co-ban-danh-cho-nguoi-moi">Lập trình PHP &amp; MySQL cơ bản dành cho người mới</a>
-                        </h4>
-                        <p class="price">
-                                                        <del>2,000,000đ</del>
-                            <ins>795,000đ</ins>
-                                                    </p>
-                    </div>
-
-                    <div class="education_block_footer">
-                        <div class="education_block_author">
-                            <div class="path-img"><a href="instructor-detail.html"><img src="/frontend/assets/img/ta-hoang-an.jpg" class="img-fluid " alt=""></a></div>
-                            <h5><a href="#">Hoàng An</a></h5>
-                        </div>
-                        <div class="foot_lecture"><i class="ti-control-skip-forward mr-2"></i>259 bài học
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-                        <!-- Cource Grid 1 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="education_block_grid style_2" style="">
-
-                    <div class="education_block_thumb n-shadow">
-                        <a href="/khoa-hoc/lap-trinh-php-nang-cao-chuyen-sau-de-di-lam"><img src="/storage/images/khoa%20hoc%20php%20nang%20cao.png" class="img-fluid custom-course-image" alt=""></a>
-                        <div class="cources_price" style="left: 0; top: 0; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            795,000đ
-                        </div>
-                                                <div class="cources_price" style="left: auto;right: 0px !important; top: 0px; background: #f26651db; box-shadow: 0px 0px 0px 4px #06833dab; color: #fff;">
-                            Đã ra mắt</div>
-                                            </div>
-
-                    <div class="education_block_body">
-                        <h4 class="bl-title"><a href="/khoa-hoc/lap-trinh-php-nang-cao-chuyen-sau-de-di-lam">Lập trình PHP nâng cao - chuyên sâu để đi làm</a>
-                        </h4>
-                        <p class="price">
-                                                        <del>2,000,000đ</del>
-                            <ins>795,000đ</ins>
-                                                    </p>
-                    </div>
-
-                    <div class="education_block_footer">
-                        <div class="education_block_author">
-                            <div class="path-img"><a href="instructor-detail.html"><img src="/frontend/assets/img/ta-hoang-an.jpg" class="img-fluid " alt=""></a></div>
-                            <h5><a href="#">Hoàng An</a></h5>
-                        </div>
-                        <div class="foot_lecture"><i class="ti-control-skip-forward mr-2"></i>142 bài học
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            
-
-
+            @endforeach
         </div>
 
     </div>

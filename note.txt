@@ -22,6 +22,8 @@ npm install && npm run dev
 composer dump-autoload
 chạy khi sửa composer (dùng trong trường hợp file helpers)
 
+kết hợp modules với repository thì làm như bt nhưng ko đk repository ở AppServiceProvider.php mà đk ở  ModuleServiceProvider.php
+
 --------------------------------
 
 
