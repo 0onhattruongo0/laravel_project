@@ -306,4 +306,5 @@ php artisan module:make-seeder TenSeeder TenModule
 
 chạy seeder
 php artisan db:seed --class=Modules\\User\\seeders\\UserSeeder
+php artisan db:seed --class=Modules\\Student\\seeders\\StudentSeeder
 ```

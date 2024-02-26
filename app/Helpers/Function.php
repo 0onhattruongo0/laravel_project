@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Student\src\Model\Student;
+
 function isRole($dataArr, $moduleName, $role = 'view')
 {
     if (!empty($dataArr[$moduleName])) {
@@ -35,4 +37,13 @@ function moduleArray()
             'title' => 'Quản lý khóa học',
         ],
     ];
+}
+
+function isStudentActive($email)
+{
+    $count = Student::where('email', $email)->where('status', 1)->count();
+    if ($count > 0) {
+        return true;
+    }
+    return false;
 }

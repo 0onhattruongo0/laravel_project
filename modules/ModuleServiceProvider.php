@@ -12,6 +12,7 @@ use Modules\Video\src\Repositories\VideoRepository;
 use Modules\Lesson\src\Repositories\LessonRepository;
 use Modules\Module\src\Repositories\ModuleRepository;
 use Modules\Courses\src\Repositories\CoursesRepository;
+use Modules\Student\src\Repositories\StudentRepository;
 use Modules\Teacher\src\Repositories\TeacherRepository;
 use Modules\Document\src\Repositories\DocumentRepository;
 use Modules\User\src\Repositories\UserRepositoryInterface;
@@ -21,6 +22,7 @@ use Modules\Categories\src\Repositories\CategoriesRepository;
 use Modules\Lesson\src\Repositories\LessonRepositoryInterface;
 use Modules\Module\src\Repositories\ModuleRepositoryInterface;
 use Modules\Courses\src\Repositories\CoursesRepositoryInterface;
+use Modules\Student\src\Repositories\StudentRepositoryInterface;
 use Modules\Teacher\src\Repositories\TeacherRepositoryInterface;
 use Modules\Document\src\Repositories\DocumentRepositoryInterface;
 use Modules\Categories\src\Repositories\CategoriesRepositoryInterface;
@@ -75,6 +77,10 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->singleton(
             ModuleRepositoryInterface::class,
             ModuleRepository::class
+        );
+        $this->app->singleton(
+            StudentRepositoryInterface::class,
+            StudentRepository::class
         );
     }
 

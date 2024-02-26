@@ -25,7 +25,7 @@ return new class() extends Migration
             $table->integer('views')->default(0);
             $table->integer('position')->default(0);
             $table->float('duration')->default(0);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
             $table->foreign('video_id')->references('id')->on('videos')->nullOnDelete();

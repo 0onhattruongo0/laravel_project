@@ -1,4 +1,5 @@
 @extends('layouts.frontend')
+@section('title','Thông tin đơn hàng')
 @section('content')
          
 <section class="bg-light">

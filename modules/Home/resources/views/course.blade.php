@@ -1,4 +1,7 @@
 @extends('layouts.frontend')
+@section('title')
+{{$course->name}}
+@endsection
 @section('content')
 
                     

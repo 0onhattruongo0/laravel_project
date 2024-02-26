@@ -6,6 +6,8 @@ use App\Policies\GroupPolicy;
 use Modules\User\src\Model\User;
 use Modules\Group\src\Model\Group;
 use Illuminate\Support\Facades\Gate;
+use Modules\Student\src\Model\Student;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -92,6 +94,10 @@ class AuthServiceProvider extends ServiceProvider
                 return $check;
             }
             return false;
+        });
+
+        ResetPassword::createUrlUsing(function (Student $student, string $token) {
+            return route('students.password_reset', ['token' => $token]) . '?email=' . $student->email;
         });
     }
 }

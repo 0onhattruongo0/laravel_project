@@ -1,4 +1,5 @@
 @extends('layouts.frontend')
+@section('title','Trang chủ')
 @section('slide')
 <div class="main-slide owl-carousel owl-theme">
     <div class="item">

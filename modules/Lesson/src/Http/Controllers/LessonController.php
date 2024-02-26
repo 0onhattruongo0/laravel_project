@@ -4,6 +4,8 @@ namespace Modules\Lesson\src\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Modules\Lesson\src\Http\Requests\LessonRequest;
 use Modules\Video\src\Repositories\VideoRepositoryInterface;
@@ -148,10 +150,14 @@ class LessonController extends Controller
     {
         $document = $this->documentRepository->getDocumentId($document_url);
         if (!$document) {
+            $name = basename($document_url);
+            $path = Storage::path(str_replace('storage', 'public', $document_url));
+            $size = File::size($path);
             $add_document = $this->documentRepository->create(
                 [
-                    'name' => $document_url,
+                    'name' => $name,
                     'url' => $document_url,
+                    'size' => $size
                 ]
             );
             return $add_document->id;

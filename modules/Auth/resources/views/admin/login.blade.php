@@ -28,7 +28,6 @@
                             <label class="form-check-label" for="inputRememberPassword">Ghi nhớ mật khẩu</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                            <a class="small" href="password.html">Quên mật khẩu?</a>
                             <button type="submit" class="btn btn-primary" href="index.html">Đăng nhập</button>
                         </div>
                     </form>

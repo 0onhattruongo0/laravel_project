@@ -1,4 +1,7 @@
 @extends('layouts.frontend')
+@section('title')
+{{$lesson->name}}
+@endsection
 @section('content')
 <section class="bg-light" data-page="lession" data-course="Lập trình web PHP &amp; MySQL với Laravel Framework">
 <div class="container">
