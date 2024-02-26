@@ -72,8 +72,22 @@
                     <p>Học trên mọi thiết bị</p>
                     <p>Không giới hạn thời gian</p>
                     <p class="text-center">
-                        <a href="/bai-hoc/bai-01-gioi-thieu-laravel-framework-cai-dat-laravel-8x" class="btn btn-danger btn-block" style="color: #fff;">Vào học
-                        ngay</a>
+                        @if($courseActive)
+                        @foreach($course->module as $module)
+                            @foreach($module->lesson as $i=>$lesson)
+                                @if($i==0)
+                                <a href="{{route('lesson',$lesson->slug)}}" class="btn btn-danger btn-block" style="color: #fff;">
+                                    Vào học ngay
+                                </a>
+                                @endif
+                            @endforeach
+                        @endforeach
+                        
+                        @else
+                        <a href="{{route('payment',$course)}}" class="btn btn-danger btn-block" style="color: #fff;">
+                            Mua ngay
+                        </a>
+                        @endif
                     </p>
                 </div>
             </div>

@@ -16,7 +16,7 @@
                             <p class="text-danger">{{ session('err') }}</p>
                         @endif
                         <div class="form-group">
-                            <input type="text" name="email" class="form-control" placeholder="Email" required>
+                            <input type="text" name="email" value="{{old('email')}}" class="form-control" placeholder="Email" required>
                             @error('email')
                             <p class="text-danger">{{ $message }}</p>
                             @enderror

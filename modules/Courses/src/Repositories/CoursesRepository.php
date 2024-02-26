@@ -41,4 +41,9 @@ class CoursesRepository extends BaseRepository implements CoursesRepositoryInter
     {
         return $course->categories()->allRelatedIds()->toArray();
     }
+
+    public function createOrder($course, $data = [])
+    {
+        return $course->students()->attach($data);
+    }
 }

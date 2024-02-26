@@ -4,6 +4,7 @@ namespace Modules\Courses\src\Model;
 
 use Modules\Lesson\src\Model\Lesson;
 use Modules\Module\src\Model\Module;
+use Modules\Student\src\Model\Student;
 use Modules\Teacher\src\Model\Teacher;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Categories\src\Model\Category;
@@ -30,6 +31,11 @@ class Course extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'categories_courses');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'orders');
     }
 
     public function teacher()

@@ -12,4 +12,5 @@ interface CoursesRepositoryInterface extends RepositoryInterface
     public function deleteCoursesCategories($course);
     public function getCategoriesId($course);
     public function getCourse($slug);
+    public function createOrder($course, $data = []);
 }
