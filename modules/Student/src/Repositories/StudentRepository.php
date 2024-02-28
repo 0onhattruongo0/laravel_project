@@ -12,4 +12,13 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
     {
         return Student::class;
     }
+    public function getData()
+    {
+        return $this->model->select(['id', 'name', 'email', 'phone', 'address', 'created_at'])->latest();
+    }
+
+    public function activeCourse($student, $data = [])
+    {
+        return $student->courses()->attach($data);
+    }
 }

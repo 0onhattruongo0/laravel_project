@@ -114,9 +114,9 @@ class GroupController extends Controller
 
         $roleListArr = [
             'view' => 'Xem',
-            'add' => 'Thêm',
             'edit' => 'Sửa',
-            'delete' => 'Xóa'
+            'delete' => 'Xóa',
+            'add' => 'Thêm',
         ];
 
         $roleJson = $group->permissions;

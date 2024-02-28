@@ -2,14 +2,18 @@
 
 namespace Modules\Student\src\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Modules\Order\src\Repositories\OrderRepositoryInterface;
 use Modules\Student\src\Http\Requests\RegisterStudentRequest;
+use Modules\Courses\src\Repositories\CoursesRepositoryInterface;
 use Modules\Student\src\Repositories\StudentRepositoryInterface;
 
 class StudentController extends Controller
@@ -18,10 +22,72 @@ class StudentController extends Controller
     use SendsPasswordResetEmails;
 
     protected $studentRepository;
+    protected $coursesRepository;
+    protected $orderRepository;
 
-    public function __construct(StudentRepositoryInterface $studentRepository)
+    public function __construct(StudentRepositoryInterface $studentRepository, CoursesRepositoryInterface $coursesRepository, OrderRepositoryInterface $orderRepository)
     {
         $this->studentRepository = $studentRepository;
+        $this->coursesRepository = $coursesRepository;
+        $this->orderRepository = $orderRepository;
+    }
+
+    public function index()
+    {
+        $page_title = 'Danh sách học viên';
+        return view('student::list', compact('page_title'));
+    }
+
+    public function data()
+    {
+        $students = $this->studentRepository->getData();
+        return DataTables::of($students)
+            ->addColumn('edit', function ($student) {
+                return '<a href="' . route('admin.students.edit', $student) . '" class="btn btn-warning">Kích hoạt khóa học</a>';
+            })
+            ->addColumn('delete', function ($student) {
+                return '<a href="' . route('admin.students.delete', $student) . '" class="btn btn-danger delete_action">Xóa</a>';
+            })
+            ->editColumn('created_at', function ($student) {
+                return Carbon::parse($student->created_at)->format('d/m/Y H:i:s');
+            })
+            ->rawColumns(['edit', 'delete'])
+            ->toJson();
+    }
+
+    public function edit($studentId)
+    {
+        $page_title = 'Kích hoạt khóa học';
+        $ordered = $this->orderRepository->ordered($studentId);
+        $student = $this->studentRepository->find($studentId);
+        return view('student::active_course', compact('page_title', 'ordered', 'student'));
+    }
+
+    public function update($studentId, Request $request)
+    {
+        $coursesAll = $this->coursesRepository->getData()->get();
+        foreach ($coursesAll as $item) {
+            $order = $this->orderRepository->getIdUpdate($studentId, $item->id);
+            if (!empty($order[0])) {
+                $this->orderRepository->update($order[0]->id, ['status' => 0]);
+            }
+        }
+        $courseActive = $request->courses;
+        if ($courseActive) {
+            foreach ($courseActive as $item) {
+                $order = $this->orderRepository->getIdUpdate($studentId, $item);
+                if (!empty($order[0])) {
+                    $this->orderRepository->update($order[0]->id, ['status' => 1]);
+                }
+            }
+        }
+        return back()->with('msg', 'Cập nhật thành công');
+    }
+
+    public function delete($studentId)
+    {
+        $this->studentRepository->delete($studentId);
+        return redirect(route('admin.students.index'))->with('msg', 'Xóa học viên thành công');
     }
 
     public function viewLogin()

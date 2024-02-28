@@ -16,6 +16,15 @@ Route::controller(StudentController::class)->name('students.')->group(function (
     Route::get('/quen-mat-khau', 'forgetPassword')->name('forget_password')->middleware('guest:student');
     Route::post('/quen-mat-khau', 'sendResetLinkEmail')->name('email')->middleware('guest:student');
 });
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::controller(StudentController::class)->prefix('students')->middleware('can:students')->name('students.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/data', 'data')->name('data');
+        Route::get('/active/{student}', 'edit')->name('edit')->can('students.edit');
+        Route::post('/active/{student}', 'update')->name('update')->can('students.edit');
+        Route::post('/delete/{student}', 'delete')->name('delete')->can('students.delete');
+    });
+});
 
 Route::controller(ResetPasswordStudentController::class)->name('students.')->group(function () {
     Route::get('/đat-lai-mat-khau/{token}', 'showResetForm')->name('password_reset')->middleware('guest:student');

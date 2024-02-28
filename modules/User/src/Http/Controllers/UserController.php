@@ -51,7 +51,7 @@ class UserController extends Controller
     public function create()
     {
         $page_title = 'Thêm mới người dùng';
-        $group_list = $this->groupRepository->getData()->get();
+        $group_list = $this->groupRepository->getDataAll()->get();
         return view('user::add', compact('page_title', 'group_list'));
     }
 
@@ -74,7 +74,7 @@ class UserController extends Controller
         if (!$user) {
             abort(404);
         }
-        $group_list = $this->groupRepository->getData()->get();
+        $group_list = $this->groupRepository->getDataAll()->get();
         return view('user::edit', compact('user', 'page_title', 'group_list'));
     }
 

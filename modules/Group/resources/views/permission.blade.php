@@ -24,6 +24,8 @@
     
                         @if(!empty($roleListArr))
                         @foreach($roleListArr as $roleName => $roleLabel)
+                            @if($item['name'] != 'students' || $roleName !='add')
+                            @if($item['name'] != 'orders' || $roleName !='add')
                             <div class="col-2">
                                 <label for="role_{{$item['name']}}_{{$roleName}}">
                                     <input type="checkbox" name='role[{{$item['name']}}][]' id='role_{{$item['name']}}_{{$roleName}}'
@@ -32,6 +34,8 @@
                                     {{$roleLabel}}
                                 </label>
                             </div>
+                            @endif
+                            @endif
                         @endforeach
                         @endif
                 

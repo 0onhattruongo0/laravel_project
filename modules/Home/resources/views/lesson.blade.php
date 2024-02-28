@@ -14,12 +14,16 @@
                         <hr>
                         <iframe class='sproutvideo-player' src='{{$lesson->video->url}}' width='630' height='394' frameborder='0' allowfullscreen></iframe>
                         <hr>
+                        
                         <div class="box-action-lesson">
+                            @if($more)
                             <a href="{{$more ? route('lesson', $more->slug) : false}}" class="next-lesson">
                                 Bài tiếp <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                             </a>
-                            <a style="margin-left: 10px; color: #fff;" href="#" class="btn hide-lesson">Ẩn bài
-                    học</a>
+                            @else
+                            <div class="next-lesson"></div>
+                            @endif
+                            <a style="margin-left: 10px; color: #fff;" href="#" class="btn hide-lesson">Ẩn bài học</a>
                         </div>
                         <hr>
                     </div>
@@ -34,8 +38,8 @@
                                 <ul>
                                     @foreach($module->lesson as $lesson)
                                     <li class="{{url()->current() == route('lesson',$lesson->slug) ? 'lesson-active' : false}}">
-                                        <input name="checklesson" type="checkbox" data-lesson="{{$lesson->id}}" {{$lesson->finish == 1 ? 'checked' : false}}/>
-                                        <a href="{{route('lesson',$lesson->slug)}}" class="{{$lesson->finish == 1 ? 'checkfinish' : false}}">{{$lesson->name}}</a>
+                                        <input name="checklesson" type="checkbox" data-course="{{$course->id}}" data-lesson="{{$lesson->id}}" {{checkFinish($arrFinish, $course->id, $lesson->id) ? 'checked' : false}}/>
+                                        <a href="{{route('lesson',$lesson->slug)}}" class="{{checkFinish($arrFinish, $course->id, $lesson->id) ? 'checkfinish' : false}}">{{$lesson->name}}</a>
                                     </li>
                                     @endforeach
                                     {{-- <li class="">
@@ -62,4 +66,49 @@
     </div>
 </div>
 </section>
+@endsection
+
+@section('custom_js')
+<script>
+    jQuery('input[name="checklesson"]').on('click', function() {
+        var lessonId = $(this).data('lesson');
+        var courseId = $(this).data('course');
+        var _token = $('input[name="_token"]').val();
+        if (lessonId != '') {
+            jQuery.ajax({
+                url: "{{route('finish')}}",
+                type: 'POST',
+                data: {
+                    lessonId: lessonId,
+                    courseId: courseId,
+                    _token: _token
+                },
+                context: this,
+                success: function(response) {
+                    console.log(response.mes);
+                    if (response.mes == 'addsuccess') {
+                        $(this).parent('li').find('a').addClass('checkfinish');
+                    } else {
+                        $(this).parent('li').find('a').removeClass('checkfinish');
+                    }
+                }
+            });
+        }
+
+    })
+
+    if (jQuery('.hide-lesson').length > 0) {
+        jQuery('.hide-lesson').on('click', function(e) {
+            e.preventDefault();
+            if (!jQuery('.edu_wraper').hasClass('full-width')) {
+                jQuery('.edu_wraper').addClass('full-width');
+                jQuery(this).text('Hiện bài học');
+            } else {
+                jQuery('.edu_wraper').removeClass('full-width');
+                jQuery(this).text('Ẩn bài học');
+            }
+        });
+    }
+
+</script>
 @endsection

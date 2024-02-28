@@ -21,6 +21,7 @@ return new class() extends Migration
             $table->string('password');
             $table->string('address')->nullable();
             $table->boolean('status')->default(1);
+            $table->text('finish')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

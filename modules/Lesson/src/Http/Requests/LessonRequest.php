@@ -28,7 +28,6 @@ class LessonRequest extends FormRequest
             'slug' => 'required|max:255',
             'video' => 'required|max:255',
             'is_trial' => 'required|integer',
-            'description' => 'required'
         ];
         return $rule;
     }

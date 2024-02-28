@@ -2,8 +2,9 @@
 
 namespace Modules\Order\src\Model;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Courses\src\Model\Course;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
@@ -17,4 +18,8 @@ class Order extends Model
         'price',
         'status'
     ];
+    public function courses()
+    {
+        return $this->belongsTo(Course::class, 'course_id', 'id');
+    }
 }

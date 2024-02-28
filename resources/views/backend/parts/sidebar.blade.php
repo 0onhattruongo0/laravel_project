@@ -37,6 +37,18 @@
                         'title' => 'Nhóm người dùng'
                     ])
                 @endcan
+                @can('groups')
+                    @include('backend.parts.sidebar_item', [
+                        'name' => 'students',
+                        'title' => 'Học viên'
+                    ])
+                @endcan
+                @can('groups')
+                    @include('backend.parts.sidebar_item', [
+                        'name' => 'orders',
+                        'title' => 'Đơn hàng'
+                    ])
+                @endcan
             </div>
         </div>
     </nav>

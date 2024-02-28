@@ -20,11 +20,11 @@
                             <div class="dashboard_container_body p-4">
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
-                                        <p>Khóa học: <b>Lập trình PHP nâng cao - chuyên sâu để đi làm</b></p>
+                                        <p>Khóa học: <b>{{$course->name}}</b></p>
                                         <p>Giá: {{number_format($course->price) . 'đ'}}</p>
                                         <p><b>Thông tin thanh toán</b></p>
                                         <p>
-                                            Ngân hàng VietcomBank – Chi nhánh Thăng Long
+                                            Ngân hàng VietcomBank
                                         </p>
                                         <p>– Số tài khoản: 1014343101</p>
                                         <p>– Chủ tài khoản: Trương Công Nhật Trường</p>

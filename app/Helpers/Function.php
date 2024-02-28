@@ -36,6 +36,14 @@ function moduleArray()
             'name' => 'courses',
             'title' => 'Quản lý khóa học',
         ],
+        [
+            'name' => 'students',
+            'title' => 'Quản lý học viên',
+        ],
+        [
+            'name' => 'orders',
+            'title' => 'Quản lý đơn hàng',
+        ],
     ];
 }
 
@@ -44,6 +52,18 @@ function isStudentActive($email)
     $count = Student::where('email', $email)->where('status', 1)->count();
     if ($count > 0) {
         return true;
+    }
+    return false;
+}
+
+function checkFinish($arr, $courseId, $lessonId)
+{
+    if ($arr && $arr->$courseId) {
+        foreach ($arr->$courseId as $item) {
+            if ($item == $lessonId) {
+                return true;
+            }
+        }
     }
     return false;
 }

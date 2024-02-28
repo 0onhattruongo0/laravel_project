@@ -2,6 +2,7 @@
 
 namespace Modules\Student\src\Model;
 
+use Modules\Order\src\Model\Order;
 use Modules\Courses\src\Model\Course;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -18,7 +19,8 @@ class Student extends Authenticatable
         'phone',
         'password',
         'address',
-        'status'
+        'status',
+        'finish'
     ];
 
     protected $table = 'students';
@@ -26,5 +28,10 @@ class Student extends Authenticatable
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'orders')->withPivot('price', 'status');;
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'student_id', 'id');
     }
 }

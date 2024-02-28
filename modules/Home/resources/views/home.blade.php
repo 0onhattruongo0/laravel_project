@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+@if($myCourse != null)
 <section>
     <div class="container">
 
@@ -25,46 +26,18 @@
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 p-0">
-                                <div class="arrow_slide three_slide">
-
+                <div class="arrow_slide three_slide">
+                   <!-- Single Slide -->
+                   @foreach($myCourse as $item)
                     <div class="singles_items">
                         <div class="education_block_grid style_2">
                             <div class="education_block_thumb n-shadow">
-                                <a href="#first_video_modal" data-toggle="modal"><img src="https://vcdn-vnexpress.vnecdn.net/2020/05/06/546-1586955437-2173-1587007302-9641-1588750107.png" class="img-fluid custom-course-image" style="height: 190px; width: 100%; object-fit: cover;" alt=""></a>
+                                <a href="{{route('course',$item->courses->slug)}}"><img src="{{$item->courses->thumbnail}}" class="img-fluid custom-course-image" alt=""></a>
 
                             </div>
 
                             <div class="education_block_body">
-                                <h4 class="bl-title"><a href="#first_video_modal" data-toggle="modal">Hướng dẫn
-                                        học lập
-                                        trình Online hiệu quả</a></h4>
-                            </div>
-
-
-
-                            <div class="education_block_footer">
-                                <div class="education_block_author">
-                                    <div class="path-img"><img src="/frontend/assets/img/ta-hoang-an.jpg" class="img-fluid " alt=""></div>
-                                    <h5><a>Hoàng An</a></h5>
-                                </div>
-
-                                <div class="foot_lecture" style="background: #CD3518; color: #fff;">Hãy xem
-                                    trước khi
-                                    học</div>
-                            </div>
-                        </div>
-                    </div>
-
-                                        <!-- Single Slide -->
-                    <div class="singles_items">
-                        <div class="education_block_grid style_2">
-                            <div class="education_block_thumb n-shadow">
-                                <a href="/khoa-hoc/lap-trinh-web-php-mysql-voi-laravel-framework"><img src="/storage/images/khoa%20hoc%20laravel.png" class="img-fluid custom-course-image" alt=""></a>
-
-                            </div>
-
-                            <div class="education_block_body">
-                                <h4 class="bl-title"><a href="/khoa-hoc/lap-trinh-web-php-mysql-voi-laravel-framework">Lập trình web PHP &amp; MySQL với Laravel Framework</a>
+                                <h4 class="bl-title"><a href="{{route('course',$item->courses->slug)}}">{{$item->courses->name}}</a>
                                 </h4>
                             </div>
 
@@ -72,46 +45,25 @@
 
                             <div class="education_block_footer">
                                 <div class="education_block_author">
-                                    <div class="path-img"><img src="/frontend/assets/img/ta-hoang-an.jpg" class="img-fluid " alt=""></div>
-                                    <h5><a>Hoàng An</a></h5>
+                                    <div class="path-img"><img src="{{$item->courses->teacher->image}}" class="img-fluid " alt=""></div>
+                                    <h5><a>{{$item->courses->teacher->name}}</a></h5>
                                 </div>
-                                <div class="foot_lecture"><i class="ti-control-skip-forward mr-2"></i>262
-                                    bài học
+                                <div class="foot_lecture"><i class="ti-control-skip-forward mr-2"></i>{{$item->courses->lesson->count()}}
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    @endforeach
                     <!-- Single Slide -->
                     
                 </div>
-                            </div>
-
-            <div class="modal fade" id="first_video_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 800px;" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">
-                                Hướng dẫn học lập trình Online hiệu quả
-                            </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body trial-video">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/TbWFLqudtj8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-
-                        </div>
-                    </div>
-                </div>
             </div>
+
         </div>
 
     </div>
 </section>
+@endif
 
 <section class="bg-light">
     <div class="container">

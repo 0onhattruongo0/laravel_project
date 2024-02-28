@@ -115,7 +115,7 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
     const arr_module = [
-        'users', 'groups', 'teachers', 'categories', 'courses', 'lessons', 'categories_post', 'posts'
+        'users', 'groups', 'teachers', 'categories', 'courses', 'lessons', 'students', 'orders'
     ]
 
     const arr_role = [
@@ -127,8 +127,9 @@ window.addEventListener('DOMContentLoaded', event => {
             if (document.querySelector('#role_' + value + '_view')) {
                 document.querySelector('#role_' + value + '_view').addEventListener('click', function (e) {
                     if (document.querySelector('#role_' + value + '_view').checked == false) {
-                        document.querySelector('#role_' + value + '_' + item).checked = false;
-
+                        if (document.querySelector('#role_' + value + '_' + item)) {
+                            document.querySelector('#role_' + value + '_' + item).checked = false;
+                        }
                     }
                 });
             }
