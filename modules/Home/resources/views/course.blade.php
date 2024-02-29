@@ -33,14 +33,14 @@
                 <div class="edu_wraper">
                     <h4 class="edu_title">Bài học</h4>
                     <div id="accordionExample" class="accordion shadow circullum">
-                        @foreach($course->module as $module)
+                        @foreach($course->module as $key=>$module)
                         <div class="card">
                             <div id="heading0" class="card-header bg-white shadow-sm border-0">
                                 <h6 class="mb-0 accordion_title">
-                                    <a href="fddsfd" data-toggle="collapse" data-target="#collapse0" aria-expanded="false" aria-controls="collapse0" class="d-block position-relative collapsed text-dark collapsible-link py-2">{{$module->name}}</a>
+                                    <a href="#" data-toggle="collapse" data-target="#collapse_{{$key}}" aria-expanded="false" aria-controls="collapse_{{$key}}" class="d-block position-relative collapsed text-dark collapsible-link py-2">{{$module->name}}</a>
                                 </h6>
                             </div>
-                            <div id="collapse0" aria-labelledby="heading0" data-parent="#accordionExample" class="collapse show">
+                            <div id="collapse_{{$key}}" aria-labelledby="heading0" data-parent="#accordionExample" class="collapse">
                                 <div class="card-body pl-3 pr-3">
                                     <ul class="lectures_lists">
                                         @foreach($module->lesson as $lesson)
@@ -73,14 +73,16 @@
                     <p>Không giới hạn thời gian</p>
                     <p class="text-center">
                         @if($courseActive)
-                        @foreach($course->module as $module)
-                            @foreach($module->lesson as $i=>$lesson)
-                                @if($i==0)
-                                <a href="{{route('lesson',$lesson->slug)}}" class="btn btn-danger btn-block" style="color: #fff;">
-                                    Vào học ngay
-                                </a>
-                                @endif
-                            @endforeach
+                        @foreach($course->module as $index => $module)
+                            @if($index==0)
+                                @foreach($module->lesson as $i=>$lesson)
+                                    @if($i==0)
+                                    <a href="{{route('lesson',$lesson->slug)}}" class="btn btn-danger btn-block" style="color: #fff;">
+                                        Vào học ngay
+                                    </a>
+                                    @endif
+                                @endforeach
+                            @endif
                         @endforeach
                         
                         @else
