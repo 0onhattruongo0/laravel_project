@@ -58,7 +58,7 @@ function isStudentActive($email)
 
 function checkFinish($arr, $courseId, $lessonId)
 {
-    if ($arr && $arr->$courseId) {
+    if (!empty($arr) && !empty($arr->$courseId)) {
         foreach ($arr->$courseId as $item) {
             if ($item == $lessonId) {
                 return true;

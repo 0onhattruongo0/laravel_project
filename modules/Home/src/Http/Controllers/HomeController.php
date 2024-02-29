@@ -106,13 +106,13 @@ class HomeController extends Controller
             ]
         ];
 
-        if (!$student->finish) {
+        if (empty($student->finish)) {
             $data = json_encode($finish);
             $this->studentRepository->update($idStudent, ['finish' => $data]);
             return response()->json(['mes' =>  'addsuccess']);
         } else {
-            $arrFinish = json_decode($student->finish, true);
-            if ($arrFinish[$request->courseId]) {
+            $arrFinish = json_decode($student->finish, TRUE);
+            if (!empty($arrFinish[$request->courseId])) {
                 $hasFinish = false;
                 foreach ($arrFinish[$request->courseId] as $i => $item) {
                     if ($item == $request->lessonId) {
