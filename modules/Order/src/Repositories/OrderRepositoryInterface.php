@@ -8,4 +8,5 @@ interface OrderRepositoryInterface extends RepositoryInterface
 {
     public function getIdUpdate($studentid, $course_id);
     public function ordered($studentId);
+    public function getData();
 }

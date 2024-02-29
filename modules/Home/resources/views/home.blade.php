@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-@if($myCourse != null)
+@if($myCourse->count()>0)
 <section>
     <div class="container">
 

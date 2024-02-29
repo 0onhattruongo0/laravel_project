@@ -2,6 +2,7 @@
 
 namespace Modules\Student\src\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterStudentRequest extends FormRequest
@@ -23,6 +24,13 @@ class RegisterStudentRequest extends FormRequest
      */
     public function rules()
     {
+        if (Auth::guard('student')->user()) {
+            return [
+                'name' => 'required|max:255',
+                'phone' => 'required|regex:/^0[0-9]{9}$/',
+                'address' => 'required'
+            ];
+        }
         return [
             'name' => 'required|max:255',
             'email' => 'required|email|unique:students,email',

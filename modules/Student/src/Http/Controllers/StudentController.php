@@ -40,7 +40,7 @@ class StudentController extends Controller
 
     public function data()
     {
-        $students = $this->studentRepository->getData();
+        $students = $this->studentRepository->getData()->get();
         return DataTables::of($students)
             ->addColumn('edit', function ($student) {
                 return '<a href="' . route('admin.students.edit', $student) . '" class="btn btn-warning">Kích hoạt khóa học</a>';

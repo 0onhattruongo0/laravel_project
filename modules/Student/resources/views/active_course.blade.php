@@ -6,6 +6,7 @@
 @if(session('err'))
 <div class="alert alert-danger">{{session('err')}}</div>
 @endif
+@if($ordered->count()>0)
 <form action="" method="POST">
     @csrf
     <div class="row mb-2">
@@ -27,4 +28,7 @@
     <button type='submit' class="btn btn-primary">Active</button>
     <a href="{{route('admin.students.index')}}" class="btn btn-warning">Hủy</a>
 </form>
+@else
+<h3>Học viên chưa mua bất kỳ khóa học nào</h3>
+@endif
 @endsection

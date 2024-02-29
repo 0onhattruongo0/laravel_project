@@ -4,6 +4,7 @@ namespace Modules\Home\src\Http\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class homeLoginMiddleware
 {
@@ -16,6 +17,10 @@ class homeLoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+
+        if (empty(Auth::guard('student')->user())) {
+            return redirect(route('students.viewLogin'));
+        }
         return $next($request);
     }
 }

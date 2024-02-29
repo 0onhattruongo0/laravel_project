@@ -13,7 +13,7 @@
                     <form action="" method="POST">
                         @csrf
                         @if(session('msg'))
-                            <p class="text-danger">{{ session('msg') }}</p>
+                            <h5 class="text-danger">{{ session('msg') }}</h5>
                         @endif
 
                         <div class="form-group">

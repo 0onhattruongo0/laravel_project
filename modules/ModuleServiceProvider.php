@@ -16,6 +16,7 @@ use Modules\Courses\src\Repositories\CoursesRepository;
 use Modules\Student\src\Repositories\StudentRepository;
 use Modules\Teacher\src\Repositories\TeacherRepository;
 use Modules\Document\src\Repositories\DocumentRepository;
+use Modules\Home\src\Http\Middlewares\homeLoginMiddleware;
 use Modules\User\src\Repositories\UserRepositoryInterface;
 use Modules\Group\src\Repositories\GroupRepositoryInterface;
 use Modules\Order\src\Repositories\OrderRepositoryInterface;
@@ -34,7 +35,7 @@ class ModuleServiceProvider extends ServiceProvider
 {
 
     private $middleware = [
-        // 'key' => 'namespace của middleare'
+        'homeLogin' => homeLoginMiddleware::class
     ];
 
     private $commands = [];

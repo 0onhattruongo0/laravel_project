@@ -14,8 +14,12 @@
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
             <th>Ngày tạo</th>
+            @can('students.edit')
             <th>Kích hoạt khóa học</th>
+            @endcan
+            @can('students.delete')
             <th>Xóa</th>
+            @endcan
         </tr>
     </thead>
     <tfoot>
@@ -25,8 +29,12 @@
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
             <th>Ngày tạo</th>
+            @can('students.edit')
             <th>Kích hoạt khóa học</th>
+            @endcan
+            @can('students.delete')
             <th>Xóa</th>
+            @endcan
         </tr>
     </tfoot>
 </table>
@@ -45,8 +53,12 @@
                 { data : 'phone' },
                 { data : 'address' },
                 { data : 'created_at' },
+                @can('students.edit')
                 { data : 'edit' },
+                @endcan
+                @can('students.delete')
                 { data : 'delete' }
+                @endcan
             ]
         });
     });

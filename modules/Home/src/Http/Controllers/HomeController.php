@@ -2,9 +2,11 @@
 
 namespace Modules\Home\src\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\Student\src\Http\Requests\RegisterStudentRequest;
 use Modules\Lesson\src\Repositories\LessonRepositoryInterface;
 use Modules\Courses\src\Repositories\CoursesRepositoryInterface;
 use Modules\Student\src\Repositories\StudentRepositoryInterface;
@@ -50,9 +52,6 @@ class HomeController extends Controller
 
     public function lesson($slug)
     {
-        if (empty(Auth::guard('student')->user())) {
-            return redirect(route('students.viewLogin'));
-        }
         $student = Auth::guard('student')->user();
         if ($student) {
             foreach ($student->courses as $i => $course) {
@@ -64,6 +63,7 @@ class HomeController extends Controller
         $arrFinish = Auth::guard('student')->user()->finish;
         $arrFinish = json_decode($arrFinish);
         $lesson = $this->lessonRepository->getLesson($slug);
+        $this->lessonRepository->update($lesson->id, ['views' => $lesson->views + 1]);
         $course = $lesson->module->course;
         $more = $this->lessonRepository->find($lesson->id + 1);
         return view('home::lesson', compact('lesson', 'more', 'course', 'arrFinish'));
@@ -71,9 +71,6 @@ class HomeController extends Controller
 
     public function payment($courseId)
     {
-        if (empty(Auth::guard('student')->user())) {
-            return redirect(route('students.viewLogin'));
-        }
         $idStudent = Auth::guard('student')->user()->id;
         $course = $this->coursesRepository->find($courseId);
 
@@ -87,7 +84,9 @@ class HomeController extends Controller
             [
                 $idStudent = [
                     'student_id' => $idStudent,
-                    'price' => $course->price
+                    'price' => $course->price,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ]
             ]
         );
@@ -135,5 +134,30 @@ class HomeController extends Controller
             $this->studentRepository->update($idStudent, ['finish' => $data]);
             return response()->json(['mes' =>  'addsuccess']);
         }
+    }
+
+    public function student()
+    {
+        $student = Auth::guard('student')->user();
+        return view('home::student', compact('student'));
+    }
+
+    public function updateStudent(RegisterStudentRequest $request)
+    {
+        $student = Auth::guard('student')->user()->id;
+        if ($request->password) {
+            $this->studentRepository->update($student, [
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'password' => $request->password,
+                'address' => $request->address,
+            ]);
+        }
+        $this->studentRepository->update($student, [
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+        return back()->with('msg', 'Cập nhật thành công');
     }
 }

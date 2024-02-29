@@ -22,4 +22,9 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     {
         return $this->model->select('*')->where('student_id', $studentId)->get();
     }
+
+    public function getData()
+    {
+        return $this->model->select('*')->latest();
+    }
 }

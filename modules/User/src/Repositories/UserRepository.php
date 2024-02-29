@@ -6,28 +6,33 @@ use Modules\User\src\Model\User;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\Hash;
 
-class UserRepository extends BaseRepository implements UserRepositoryInterface {
+class UserRepository extends BaseRepository implements UserRepositoryInterface
+{
 
     public function getModel()
     {
         return User::class;
     }
 
-    public function getUsers($limit){
+    public function getUsers($limit)
+    {
         return $this->model->paginate($limit);
     }
 
-    public function getData(){
-        return $this->model->select(['id','name','email','group_id','created_at'])->latest();
+    public function getData()
+    {
+        return $this->model->select(['id', 'name', 'email', 'group_id', 'created_at'])->latest(); //nếu thêm get() thì nó sẽ lấy tất cả ko thể phân trang
     }
 
-    public function setPassword($password,$id){
-        return $this->update($id,['password'=> Hash::make($password)]);
+    public function setPassword($password, $id)
+    {
+        return $this->update($id, ['password' => Hash::make($password)]);
     }
 
-    public function checkPassword($password,$id){
+    public function checkPassword($password, $id)
+    {
         $user = $this->find($id);
-        if($user){
+        if ($user) {
             $hashPassword = $user->password;
             return Hash::check($password, $hashPassword);
         }
