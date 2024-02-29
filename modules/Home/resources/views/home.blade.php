@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+@if($myCourse)
 @if($myCourse->count()>0)
 <section>
     <div class="container">
@@ -63,6 +64,7 @@
 
     </div>
 </section>
+@endif
 @endif
 
 <section class="bg-light">
