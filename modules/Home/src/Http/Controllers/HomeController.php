@@ -42,7 +42,7 @@ class HomeController extends Controller
         $courseActive = false;
         if ($student) {
             foreach ($student->courses as $i => $item) {
-                if ($item->pivot->status == 1) {
+                if ($item->id == $course->id) {
                     $courseActive = true;
                 }
             };
