@@ -54,6 +54,9 @@ class HomeController extends Controller
     {
         $student = Auth::guard('student')->user();
         if ($student) {
+            if ($student->courses->count() == 0) {
+                return back();
+            };
             foreach ($student->courses as $i => $course) {
                 if ($course->pivot->status != 1) {
                     return back();
